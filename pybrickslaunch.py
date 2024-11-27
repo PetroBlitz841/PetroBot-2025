@@ -1,4 +1,4 @@
-HUB_NAME = "Pybricks Hub"
+HUB_NAME = "Controller5"
 
 import os
 import subprocess
