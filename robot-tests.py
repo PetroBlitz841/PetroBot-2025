@@ -19,14 +19,25 @@ wheels = DriveBase(left_wheel, right_wheel, wheel_diameter=62.4, axle_track=10.6
 run_colors = (Color.BLACK, Color.GREEN, Color.WHITE, Color.YELLOW, Color.RED)
 run_sensor.detectable_colors(run_colors)
 
+def gyro_abs(target, speed):
+    while not (target > hub.imu.heading() - 0.01) or not (target < hub.imu.heading() + 0.01): # the stoping range
+        direction = (target - (hub.imu.heading() % 360)) % 360 # calculating the direction of the turn
+        if direction > 180:
+            left_wheel.dc(-speed)
+            right_wheel.dc(speed)
+        else:
+            left_wheel.dc(speed)
+            right_wheel.dc(-speed)
+    wheels.stop()
 
 # Runs =================================================================================
 def black_run():
     hub.display.number(1)
-    wheels.settings(300)
+    wheels.settings(400)
 
-    wheels.straight(distance=200)
-    wheels.straight(distance=-200)
+    # left_arm.run_time(-500, 400, wait=False)
+    # wheels.straight(distance=-300)
+    wheels.(45)
 
 
 def green_run():
