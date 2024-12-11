@@ -72,6 +72,8 @@ def black_run():
     # right_wheel.run_angle(200, -120)
     left_arm.run_angle(speed=100, rotation_angle=90)
     wheels.turn(90 - 23.5)
+    # sdfghjkl;
+    wheels.angle(2)
 
 
 def red_run():
