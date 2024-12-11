@@ -22,6 +22,8 @@ wheels.use_gyro(True)
 run_colors = (Color.BLACK, Color.GREEN, Color.WHITE, Color.YELLOW, Color.RED)
 run_sensor.detectable_colors(run_colors)
 
+wheels.settings(turn_rate=100)
+
 
 # Functions ============================================================================
 def gyro_abs(target, speed):
@@ -68,14 +70,21 @@ def black_run():
     wheels.settings(200, 200)
     wait(150)
     left_arm.run_angle(speed=100, rotation_angle=-90, wait=False)
-    wheels.straight(-590)
-    # right_wheel.run_angle(200, -120)
+    wheels.straight(-500)
     left_arm.run_angle(speed=100, rotation_angle=90)
-    wheels.turn(90 - 23.5)
+    wheels.straight(-90)
+    wheels.turn(
+        angle=90 - 20.5,
+    )
     right_arm.run_angle(300, 250)
     wheels.straight(175)
-    right_arm.run_angle(300, -250)
-    # sdfghjkl;
+    right_arm.run_angle(300, -200)
+    wheels.straight(-150)
+    right_arm.run_angle(300, -50)
+    wheels.turn(45)
+    wheels.settings(900, 1000)
+    wheels.straight(250)
+    wheels.settings(300, 750)
 
 
 def red_run():
