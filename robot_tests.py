@@ -67,24 +67,34 @@ def gyro_straight(distance_mm, speed):
 def black_run():
     hub.imu.reset_heading(0)
     hub.display.number(1)
-    wheels.settings(200, 200)
+    wheels.settings(600, 300)
     wait(150)
-    left_arm.run_angle(speed=100, rotation_angle=-90, wait=False)
+    left_arm.run_angle(speed=100, rotation_angle=-90, wait=False)  # pick up stuff
     wheels.straight(-500)
     left_arm.run_angle(speed=100, rotation_angle=90)
     wheels.straight(-90)
-    wheels.turn(
-        angle=90 - 20.5,
-    )
-    right_arm.run_angle(300, 250)
-    wheels.straight(175)
-    right_arm.run_angle(300, -200)
+    wheels.turn(angle=90 - 20.5)
+    right_arm.run_angle(300, 250, wait=False)
+    wheels.straight(185)  # M01
+    right_arm.run_angle(300, -200)  # M04
+    # wheels.turn(-5)
     wheels.straight(-150)
     right_arm.run_angle(300, -50)
-    wheels.turn(45)
-    wheels.settings(900, 1000)
+    wheels.turn(43)
+    wheels.settings(900, 1000)  # M02
     wheels.straight(250)
     wheels.settings(300, 750)
+    wheels.straight(-260)
+    wheels.turn(58)
+    right_arm.run_angle(50, 65)
+    wheels.straight(65)
+    wheels.turn(-15)
+    right_arm.run_angle(200, 350)
+    wheels.straight(40)
+    wheels.straight(-110)
+    left_wheel.run_angle(240, 120)
+    wheels.drive(-1000, 25)
+    wait(2500)
 
 
 def red_run():
