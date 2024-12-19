@@ -1,12 +1,11 @@
 # pylint: disable=C0114
 # pylint: disable=C0116
-
 from pybricks.hubs import PrimeHub
 from pybricks.pupdevices import Motor, ColorSensor
 from pybricks.parameters import Color, Direction, Port
+from pybricks.tools import hub_menu
 from pybricks.robotics import DriveBase
 from pybricks.tools import wait
-
 
 # Hardware definitions =================================================================
 hub = PrimeHub()
@@ -19,10 +18,20 @@ map_sensor = ColorSensor(Port.A)
 wheels = DriveBase(left_wheel, right_wheel, wheel_diameter=62.4, axle_track=129.4)
 wheels.use_gyro(True)
 
-run_colors = (Color.BLACK, Color.GREEN, Color.WHITE, Color.YELLOW, Color.RED)
-run_sensor.detectable_colors(run_colors)
+COLOR_LIST = [
+    Color.WHITE,
+    Color.BLACK,
+    Color.GREEN,
+    Color(h=339, s=85, v=94),
+    Color.BLUE,
+    Color.YELLOW,
+    Color.VIOLET,
+    Color(h=339, s=85, v=94),
+]
 
-wheels.settings(turn_rate=100)
+map_sensor.detectable_colors(COLOR_LIST)
+run_sensor.detectable_colors(COLOR_LIST)
+print(2)
 
 
 # Functions ============================================================================
@@ -43,6 +52,7 @@ def gyro_abs(target, speed):
 
 
 def gyro_straight(distance_mm, speed):
+
     distance_driven = 0
     wheels.settings(speed)
     while distance_driven <= distance_mm - 50:  # Check if the distance has been covered
@@ -63,12 +73,19 @@ def gyro_straight(distance_mm, speed):
     wheels.stop()
 
 
+def reset():
+    hub.imu.reset_heading(0)
+    right_wheel.reset_angle(0)
+    left_wheel.reset_angle(0)
+    right_arm.reset_angle(0)
+    left_arm.reset_angle(0)
+    wheels.settings(600, 300)
+
+
 # Runs =================================================================================
 def black_run():
-    hub.imu.reset_heading(0)
+    reset()
     hub.display.number(1)
-    wheels.settings(600, 300)
-    wait(150)
     left_arm.run_angle(speed=100, rotation_angle=-90, wait=False)  # pick up stuff
     wheels.straight(-500)
     left_arm.run_angle(speed=100, rotation_angle=90)
@@ -77,7 +94,6 @@ def black_run():
     right_arm.run_angle(300, 250, wait=False)
     wheels.straight(185)  # M01
     right_arm.run_angle(300, -200)  # M04
-    # wheels.turn(-5)
     wheels.straight(-150)
     right_arm.run_angle(300, -50)
     wheels.turn(43)
@@ -94,16 +110,20 @@ def black_run():
     wheels.straight(-110)
     left_wheel.run_angle(240, 120)
     wheels.drive(-1000, 25)
-    wait(2500)
 
 
 def red_run():
-    hub.display.number(1)
-    wheels.settings()
+    reset()
+    hub.display.number(2)
+    wheels.settings(600, 250)
+    wheels.straight(435)
+    wheels.turn(45)
+    wheels.settings(straight_acceleration=400)
+    wheels.straight(300)
 
 
 def green_run():
-    hub.display.number(1)
+    hub.display.number(3)
     wheels.settings()
 
 
@@ -117,13 +137,11 @@ def yellow_run():
     wheels.settings()
 
 
-color_options = {
-    Color.BLACK: black_run,
-    Color.GREEN: green_run,
-    Color.WHITE: white_run,
-    Color.YELLOW: yellow_run,
-    Color.RED: red_run,
-}
-halifa = run_sensor.color()  # pylint: disable=E1111
-# print("current: ", hub.battery.current(), "voltage: ", hub.battery.voltage())
-color_options[halifa]()
+selected = hub_menu("0", "1")
+if selected == "0":
+    if run_sensor.color() == Color.BLACK:
+        print(run_sensor.color())
+        black_run()
+    elif run_sensor.color() == Color(h=339, s=85, v=94):
+        red_run()
+        print(run_sensor.color())
