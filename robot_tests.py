@@ -31,7 +31,6 @@ COLOR_LIST = [
 
 map_sensor.detectable_colors(COLOR_LIST)
 run_sensor.detectable_colors(COLOR_LIST)
-print(2)
 
 
 # Functions ============================================================================
@@ -86,40 +85,49 @@ def reset():
 def black_run():
     reset()
     hub.display.number(1)
+    wheels.settings(turn_rate=100)
     left_arm.run_angle(speed=100, rotation_angle=-90, wait=False)  # pick up stuff
     wheels.straight(-500)
     left_arm.run_angle(speed=100, rotation_angle=90)
     wheels.straight(-90)
     wheels.turn(angle=90 - 20.5)
-    right_arm.run_angle(300, 250, wait=False)
+    right_arm.run_angle(800, 500, wait=False)
     wheels.straight(185)  # M01
-    right_arm.run_angle(300, -200)  # M04
+    right_arm.run_angle(800, -350)  # M04
     wheels.straight(-150)
-    right_arm.run_angle(300, -50)
+    right_arm.run_angle(600, -100)
     wheels.turn(43)
     wheels.settings(900, 1000)  # M02
     wheels.straight(250)
     wheels.settings(300, 750)
     wheels.straight(-260)
     wheels.turn(58)
-    right_arm.run_angle(50, 65)
+    right_arm.run_angle(250, 160)
     wheels.straight(65)
     wheels.turn(-15)
-    right_arm.run_angle(200, 350)
+    right_arm.run_angle(250, 450)
     wheels.straight(40)
     wheels.straight(-110)
     left_wheel.run_angle(240, 120)
-    wheels.drive(-1000, 25)
+    wheels.straight(-1000)
 
 
 def red_run():
     reset()
     hub.display.number(2)
     wheels.settings(600, 250)
-    wheels.straight(435)
+    wheels.straight(440)
     wheels.turn(45)
-    wheels.settings(straight_acceleration=400)
+    wheels.settings(straight_speed=100)
     wheels.straight(300)
+
+
+def yellow_run():
+    reset()
+    hub.display.number(3)
+    wheels.settings(600, 250)
+    wheels.straight(440)
+    wheels.turn(45)
 
 
 def green_run():
@@ -132,11 +140,6 @@ def white_run():
     wheels.settings()
 
 
-def yellow_run():
-    hub.display.number(1)
-    wheels.settings()
-
-
 selected = hub_menu("0", "1")
 if selected == "0":
     if run_sensor.color() == Color.BLACK:
@@ -144,4 +147,7 @@ if selected == "0":
         black_run()
     elif run_sensor.color() == Color(h=339, s=85, v=94):
         red_run()
+        print(run_sensor.color())
+    elif run_sensor.color() == Color.YELLOW:
+        yellow_run()
         print(run_sensor.color())
