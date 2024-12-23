@@ -116,10 +116,13 @@ def red_run():
     reset()
     hub.display.number(2)
     wheels.settings(600, 250)
-    wheels.straight(440)
+    wheels.straight(430)
     wheels.turn(45)
     wheels.settings(straight_speed=100)
     wheels.straight(300)
+    wheels.settings(straight_speed=600)
+    wheels.turn(40)
+    wheels.straight(150)
 
 
 def yellow_run():
