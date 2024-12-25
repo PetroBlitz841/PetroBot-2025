@@ -2,7 +2,7 @@
 # pylint: disable=C0116
 from pybricks.hubs import PrimeHub
 from pybricks.pupdevices import Motor, ColorSensor
-from pybricks.parameters import Color, Direction, Port
+from pybricks.parameters import Color, Direction, Port, Stop
 from pybricks.tools import hub_menu
 from pybricks.robotics import DriveBase
 from pybricks.tools import wait
@@ -115,14 +115,32 @@ def black_run():
 def red_run():
     reset()
     hub.display.number(2)
-    wheels.settings(600, 250)
-    wheels.straight(430)
-    wheels.turn(45)
-    wheels.settings(straight_speed=100)
-    wheels.straight(300)
-    wheels.settings(straight_speed=600)
-    wheels.turn(40)
-    wheels.straight(150)
+    wheels.settings(500, 250)
+    wheels.straight(365, then=Stop.COAST_SMART)
+    right_wheel.hold()
+    left_wheel.run_angle(400, 235)
+    # wheels.settings(straight_speed=100)
+    # wheels.straight(300)
+    # wheels.settings(straight_speed=600)
+
+    start_angle = left_wheel.angle()
+    left_wheel.run(182)
+    right_wheel.run(180)
+    while left_wheel.angle() < start_angle + 450:
+        pass
+    left_wheel.hold()
+    right_wheel.hold()
+
+    wheels.settings(150, 100)
+    # wheels.straight(50)
+    left_wheel.run_angle(300, 200, then=Stop.NONE)
+    wheels.straight(100)
+    left_arm.run_until_stalled(400)
+    left_arm.run_until_stalled(-400)
+
+    # wheels.turn(40)
+    # wheels.straight(150)
+    # left_wheel.run_angle(200)
 
 
 def yellow_run():
