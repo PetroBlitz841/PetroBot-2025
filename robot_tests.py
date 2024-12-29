@@ -34,20 +34,26 @@ run_sensor.detectable_colors(COLOR_LIST)
 
 
 # Functions ============================================================================
-def gyro_abs(target, speed):
-    while (
-        not target > hub.imu.heading() - 0.01 or not target < hub.imu.heading() + 0.01
-    ):  # the stoping range
-        direction = (
-            target - (hub.imu.heading() % 360)
-        ) % 360  # calculating the direction of the turn
-        if direction > 180:
+def gyro_abs(target, base_speed, kp=0.16, then: Stop = Stop.HOLD):
+    STOP_RANGE = 0.05
+    while not (
+        hub.imu.heading() - STOP_RANGE < target < hub.imu.heading() + STOP_RANGE
+    ):
+        error = (target - (hub.imu.heading() % 360)) % 360
+        speed = base_speed + (error * kp)
+        direction = "left" if error > 180 else "right"
+        if direction == "left":
             left_wheel.dc(-speed)
             right_wheel.dc(speed)
         else:
             left_wheel.dc(speed)
             right_wheel.dc(-speed)
-    wheels.stop()
+
+    if then == Stop.HOLD:
+        left_wheel.hold()
+        right_wheel.hold()
+    else:
+        wheels.brake()
 
 
 def gyro_straight(distance_mm, speed):
@@ -115,32 +121,65 @@ def black_run():
 def red_run():
     reset()
     hub.display.number(2)
-    wheels.settings(500, 250)
-    wheels.straight(365, then=Stop.COAST_SMART)
+    wheels.settings(600, 400)
+    wheels.straight(415)
+    gyro_abs(45, 25)
+    wheels.settings(500, 100)  # slows down so the thingy doesn't fall back
+    wheels.straight(280)
     right_wheel.hold()
-    left_wheel.run_angle(400, 235)
-    # wheels.settings(straight_speed=100)
-    # wheels.straight(300)
-    # wheels.settings(straight_speed=600)
+    left_wheel.run_angle(360, 185, then=Stop.NONE)
+    wheels.settings(300, 600)
+    wheels.straight(30)
+    left_arm.run_angle(750, 200)
+    left_arm.run_angle(-200, 200, then=Stop.HOLD)
+    wait(350)
+    wheels.straight(90)
+    wheels.curve(210, -180)
+    wheels.straight(130)
+    wheels.curve(100, -20)
+    wheels.straight(35)
+    wheels.straight(-35)
+    wheels.turn(70)
+    wheels.straight(175)
+    right_arm.run_angle(800, -350)
+    wheels.straight(-50, wait=False)
+    right_arm.run_angle(800, 350)
 
-    start_angle = left_wheel.angle()
-    left_wheel.run(182)
-    right_wheel.run(180)
-    while left_wheel.angle() < start_angle + 450:
-        pass
-    left_wheel.hold()
-    right_wheel.hold()
-
-    wheels.settings(150, 100)
     # wheels.straight(50)
-    left_wheel.run_angle(300, 200, then=Stop.NONE)
-    wheels.straight(100)
-    left_arm.run_until_stalled(400)
-    left_arm.run_until_stalled(-400)
+    # right_arm.run_angle(800, -350)
 
-    # wheels.turn(40)
-    # wheels.straight(150)
-    # left_wheel.run_angle(200)
+    # wheels.straight(200)
+    # wheels.turn(-90)
+    # wheels.straight(400)
+
+    # wheels.straight(425, then=Stop.COAST_SMART)
+    # right_wheel.hold()
+    # left_wheel.run_angle(400, 230)  # gets to the ship
+
+    # # wheels.settings(straight_speed=100)
+    # # wheels.straight(300)
+    # # wheels.settings(straight_speed=600)
+
+    # start_angle = left_wheel.angle()  # drives into it
+    # wheels.straight(250)
+    # # left_wheel.run(182)
+    # # right_wheel.run(180)
+    # # while left_wheel.angle() < start_angle + 450:
+    # #     pass
+    # # left_wheel.hold()
+    # # right_wheel.hold()
+
+    # wheels.settings(150, 100)
+    # wheels.straight(55)
+    # # left_wheel.run_angle(300, 200, then=Stop.NONE)
+    # wheels.turn(40, then=Stop.COAST)
+    # # wheels.straight(50)
+    # left_arm.run_until_stalled(150)  # takes the kilshon
+    # left_arm.run_until_stalled(-150)
+
+    # # wheels.turn(40)
+    # # wheels.straight(150)
+    # # left_wheel.run_angle(200)
 
 
 def yellow_run():
