@@ -18,19 +18,13 @@ map_sensor = ColorSensor(Port.A)
 wheels = DriveBase(left_wheel, right_wheel, wheel_diameter=62.4, axle_track=129.4)
 wheels.use_gyro(True)
 
-COLOR_LIST = [
-    Color.WHITE,
-    Color.BLACK,
-    Color.GREEN,
-    Color(h=339, s=85, v=94),
-    Color.BLUE,
-    Color.YELLOW,
-    Color.VIOLET,
-    Color(h=339, s=85, v=94),
-]
+RUN_RED = Color(h=339, s=85, v=94)
+RUN_COLORS = [Color.BLACK, RUN_RED]
+
+COLOR_LIST = [Color.BLACK, Color.WHITE, Color.BLUE, Color.GREEN, Color.RED]
 
 map_sensor.detectable_colors(COLOR_LIST)
-run_sensor.detectable_colors(COLOR_LIST)
+run_sensor.detectable_colors(RUN_COLORS)
 
 
 # Functions ============================================================================
@@ -121,29 +115,34 @@ def black_run():
 def red_run():
     reset()
     hub.display.number(2)
-    wheels.settings(600, 400)
-    wheels.straight(415)
-    gyro_abs(45, 25)
+    wheels.settings(500, 250)
+    wheels.straight(425)
+    # gyro_abs(45, 25)
+    wheels.turn(45)
     wheels.settings(500, 100)  # slows down so the thingy doesn't fall back
     wheels.straight(280)
-    right_wheel.hold()
-    left_wheel.run_angle(360, 185, then=Stop.NONE)
+    left_wheel.run_angle(360, 165, then=Stop.NONE)
     wheels.settings(300, 600)
-    wheels.straight(30)
-    left_arm.run_angle(750, 200)
-    left_arm.run_angle(-200, 200, then=Stop.HOLD)
+    wheels.straight(65)
+    left_arm.run_angle(750, -220)
+    wait(500)
+    left_arm.run_angle(250, 250)
     wait(350)
-    wheels.straight(90)
-    wheels.curve(210, -180)
-    wheels.straight(130)
+
+    wheels.straight(15, Stop.NONE)
+
+    wheels.curve(180, -95, Stop.NONE)
+    wheels.straight(40, Stop.NONE)
+    wheels.curve(185, -90)
+
+    wheels.straight(80)
     wheels.curve(100, -20)
-    wheels.straight(35)
-    wheels.straight(-35)
-    wheels.turn(70)
-    wheels.straight(175)
+    wheels.straight(30)
+    right_wheel.run_angle(200, -220)
+    wheels.straight(200)
+    wheels.curve(500, 25)
     right_arm.run_angle(800, -350)
-    wheels.straight(-50, wait=False)
-    right_arm.run_angle(800, 350)
+    # right_arm.run_angle(800, 350)
 
     # wheels.straight(50)
     # right_arm.run_angle(800, -350)
@@ -200,14 +199,22 @@ def white_run():
     wheels.settings()
 
 
-selected = hub_menu("0", "1")
-if selected == "0":
-    if run_sensor.color() == Color.BLACK:
-        print(run_sensor.color())
-        black_run()
-    elif run_sensor.color() == Color(h=339, s=85, v=94):
-        red_run()
-        print(run_sensor.color())
-    elif run_sensor.color() == Color.YELLOW:
-        yellow_run()
-        print(run_sensor.color())
+selected = run_sensor.color()
+
+if selected == Color.BLACK:
+    black_run()
+elif selected == RUN_RED:
+    red_run()
+
+
+# selected = hub_menu("0", "1")
+# if selected == "0":
+#     if run_sensor.color() == Color.BLACK:
+#         print(run_sensor.color())
+#         black_run()
+#     elif run_sensor.color() == Color(h=339, s=85, v=94):
+#         red_run()
+#         print(run_sensor.color())
+#     elif run_sensor.color() == Color.YELLOW:
+#         yellow_run()
+#         print(run_sensor.color())
