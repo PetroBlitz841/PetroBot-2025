@@ -19,12 +19,21 @@ wheels = DriveBase(left_wheel, right_wheel, wheel_diameter=62.4, axle_track=129.
 wheels.use_gyro(True)
 
 RUN_RED = Color(h=339, s=85, v=94)
-RUN_COLORS = [Color.BLACK, RUN_RED]
+RUN_GREEN = Color(h=154, s=77, v=52)
+RUN_COLORS = [Color.BLACK, RUN_RED, Color.YELLOW, RUN_GREEN]
 
-COLOR_LIST = [Color.BLACK, Color.WHITE, Color.BLUE, Color.GREEN, Color.RED]
+COLOR_LIST = [
+    Color.BLACK,
+    Color.WHITE,
+    Color.BLUE,
+    Color.GREEN,
+    Color.RED,
+    Color.YELLOW,
+]
 
 map_sensor.detectable_colors(COLOR_LIST)
 run_sensor.detectable_colors(RUN_COLORS)
+# print(run_sensor.hsv)
 
 
 # Functions ============================================================================
@@ -116,7 +125,7 @@ def red_run():
     reset()
     hub.display.number(2)
     wheels.settings(500, 250)
-    wheels.straight(425)
+    wheels.straight(380)
     # gyro_abs(45, 25)
     wheels.turn(45)
     wheels.settings(500, 100)  # slows down so the thingy doesn't fall back
@@ -184,14 +193,29 @@ def red_run():
 def yellow_run():
     reset()
     hub.display.number(3)
-    wheels.settings(600, 250)
-    wheels.straight(440)
-    wheels.turn(45)
+    wheels.settings(800, 200)
+    wheels.straight(300)
+    right_arm.run_angle(200, -120)
+    wheels.straight(700)
 
 
 def green_run():
-    hub.display.number(3)
-    wheels.settings()
+    reset()
+    hub.display.number(4)
+    wheels.settings(600, 250)
+    wheels.straight(500)
+    wheels.straight(-40)
+    wheels.turn(-45)
+
+    wheels.straight(350)
+    wheels.turn(90)
+    wheels.straight(400)
+    wheels.turn(-150)
+    wheels.straight(20)
+    wheels.straight(-50)
+    wheels.turn(60)
+
+    wheels.straight(-100)
 
 
 def white_run():
@@ -200,11 +224,15 @@ def white_run():
 
 
 selected = run_sensor.color()
-
+print(run_sensor.color())
 if selected == Color.BLACK:
     black_run()
 elif selected == RUN_RED:
     red_run()
+elif selected == Color.YELLOW:
+    yellow_run()
+elif selected == RUN_GREEN:
+    green_run()
 
 
 # selected = hub_menu("0", "1")
