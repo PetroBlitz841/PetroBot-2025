@@ -90,6 +90,9 @@ def reset():
     wheels.settings(600, 300)
 
 
+print(map_sensor.hsv())
+
+
 # Runs =================================================================================
 def black_run():
     reset()
@@ -122,6 +125,7 @@ def black_run():
 
 
 def red_run():
+
     reset()
     hub.display.number(2)
     wheels.settings(500, 250)
@@ -130,27 +134,40 @@ def red_run():
     wheels.turn(45)
     wheels.settings(500, 100)  # slows down so the thingy doesn't fall back
     wheels.straight(280)
+
+    # Turn to trident
     left_wheel.run_angle(360, 165, then=Stop.NONE)
     wheels.settings(300, 600)
-    wheels.straight(65)
+    wheels.straight(50)  # Drive to trident
+
+    # Pickup trident
     left_arm.run_angle(750, -220)
     wait(500)
     left_arm.run_angle(250, 250)
     wait(350)
+    wheels.straight(100)
+    wheels.turn(-45)
+    wait(350)
+    while not map_sensor.color() == Color.BLACK:
+        wheels.straight(10, then=Stop.HOLD, wait=False)
+    print(map_sensor.color())
 
-    wheels.straight(15, Stop.NONE)
+    # Turn to anglerfish
+    # wheels.straight(15, Stop.NONE)
+    # wheels.curve(180, -95, Stop.NONE)
+    # wheels.straight(40, Stop.NONE)
+    # wheels.curve(185, -90)
 
-    wheels.curve(180, -95, Stop.NONE)
-    wheels.straight(40, Stop.NONE)
-    wheels.curve(185, -90)
+    # Drive to anglerfish
+    # wheels.straight(80)
 
-    wheels.straight(80)
-    wheels.curve(100, -20)
-    wheels.straight(30)
-    right_wheel.run_angle(200, -220)
-    wheels.straight(200)
-    wheels.curve(500, 25)
-    right_arm.run_angle(800, -350)
+    # wheels.curve(100, -20)
+    # wheels.straight(30)
+    # right_wheel.run_angle(200, -220)
+    # wheels.straight(200)
+    # wheels.curve(500, 25)
+    # right_arm.run_angle(800, -350)
+
     # right_arm.run_angle(800, 350)
 
     # wheels.straight(50)
