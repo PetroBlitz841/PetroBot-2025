@@ -22,9 +22,10 @@ wheels = DriveBase(
 )
 wheels.use_gyro(True)
 pi = 3.1416
-
 RUN_RED = Color(h=339, s=85, v=94)
 RUN_GREEN = Color(h=154, s=77, v=52)
+DARK_BLUE_MAT = Color(h=210, s=37, v=32)
+RIZZ_BLACK = Color(h=189, s=27, v=31)
 RUN_COLORS = [Color.BLACK, RUN_RED, Color.YELLOW, RUN_GREEN]
 
 COLOR_LIST = [
@@ -34,7 +35,11 @@ COLOR_LIST = [
     Color.GREEN,
     Color.RED,
     Color.YELLOW,
+    Color.WHITE,
+    DARK_BLUE_MAT,
+    RIZZ_BLACK,
 ]
+
 
 map_sensor.detectable_colors(COLOR_LIST)
 run_sensor.detectable_colors(RUN_COLORS)
