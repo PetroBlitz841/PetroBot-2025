@@ -154,89 +154,61 @@ def red_run():
     wheels.straight(280)
 
     # Turn to trident
-    print("turn to trident")
     left_wheel.run_angle(360, 165, then=Stop.NONE)
     wheels.settings(300, 600)
     wheels.straight(60)  # Drive to trident
 
     # Pick up trident
-    print("pick up trident")
-    left_arm.run_angle(750, -220)
+    left_arm.run_angle(speed=750, rotation_angle=-220)
     wait(500)
-    left_arm.run_angle(250, 250)
+    left_arm.run_time(speed=150, time=1800)
     wait(350)
     wheels.straight(80)
     wheels.turn(-45)
     wait(350)
-    # x = 0
-    # while map_sensor.color() != Color.BLACK:
-    #     wheels.straight(10, then=Stop.HOLD, wait=True)
-    #     x += 10
-    #     # print(map_sensor.color())
-    # print(x)
-    wheels.straight(190)
+    wheels.settings(straight_speed=300)
+    wheels.straight(10000, then=Stop.HOLD, wait=False)
+    while map_sensor.color() != RIZZ_BLACK:
+        pass
+    wheels.stop()
+    # wait(300)
+    wheels.straight(100)
+    wheels.settings(300, 600)
+    wheels.turn(-90)
+    wheels.straight(450)
+    wheels.turn(-90)
+    wheels.straight(185)
+    # wheels.turn(35)
+    # wheels.straight(75)
+    # wheels.turn(-13)
+    # wheels.straight(150)
+    # finished angler fish m05
+    wheels.turn(92)
+    wheels.straight(130)
+    wheels.settings(200)
+    wheels.straight(50)
+    wheels.settings(250, 250)
+    right_arm.run_angle(600, -400)
 
-    # Turn to anglerfish
-    print("turn to anglerfish")
-    # wheels.straight(15, Stop.NONE)
-    wheels.curve(180, -95, Stop.NONE)
-    wheels.straight(55, Stop.NONE)
-    wheels.curve(180, -80)
+    wheels.settings(turn_rate=300, turn_acceleration=500)
+    wheels.turn(40)
+    wheels.straight(-200)
+    wheels.straight(500)
+    # # Turn to anglerfish
+    # print("turn to anglerfish")
+    # # wheels.straight(15, Stop.NONE)
+    # wheels.curve(180, -95, Stop.NONE)
+    # wheels.straight(55, Stop.NONE)
+    # wheels.curve(180, -80)
 
-    # Drive to anglerfish
-    print("drive to anglerfish")
-    wheels.straight(80)
+    # # Drive to anglerfish
+    # print("drive to anglerfish")
+    # wheels.straight(80)
 
-    # Drive to seabed sample
-    print("drive to seabed sample")
-    wheels.straight(-50)
-    wheels.turn(65)
-    # wheels.straight(500)
-
-    # wheels.curve(100, -20)
-    # wheels.straight(30)
-    # right_wheel.run_angle(200, -220)
-    # wheels.straight(200)
-    # wheels.curve(500, 25)
-    # right_arm.run_angle(800, -350)
-
-    # right_arm.run_angle(800, 350)
-
-    # wheels.straight(50)
-    # right_arm.run_angle(800, -350)
-
-    # wheels.straight(200)
-    # wheels.turn(-90)
-    # wheels.straight(400)
-
-    # wheels.straight(425, then=Stop.COAST_SMART)
-    # right_wheel.hold()
-    # left_wheel.run_angle(400, 230)  # gets to the ship
-
-    # # wheels.settings(straight_speed=100)
-    # # wheels.straight(300)
-    # # wheels.settings(straight_speed=600)
-
-    # start_angle = left_wheel.angle()  # drives into it
-    # wheels.straight(250)
-    # # left_wheel.run(182)
-    # # right_wheel.run(180)
-    # # while left_wheel.angle() < start_angle + 450:
-    # #     pass
-    # # left_wheel.hold()
-    # # right_wheel.hold()
-
-    # wheels.settings(150, 100)
-    # wheels.straight(55)
-    # # left_wheel.run_angle(300, 200, then=Stop.NONE)
-    # wheels.turn(40, then=Stop.COAST)
-    # # wheels.straight(50)
-    # left_arm.run_until_stalled(150)  # takes the kilshon
-    # left_arm.run_until_stalled(-150)
-
-    # # wheels.turn(40)
-    # # wheels.straight(150)
-    # # left_wheel.run_angle(200)
+    # # Drive to seabed sample
+    # print("drive to seabed sample")
+    # wheels.straight(-50)
+    # wheels.turn(65)
 
 
 # def run_angle_time_limit(motor, rotate_speed, rotate_angle, stop_type=Stop.HOLD, time_limit_ms = 3):
