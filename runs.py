@@ -59,28 +59,6 @@ def gyro_abs(target, base_speed, kp=0.16, then: Stop = Stop.HOLD):
         wheels.brake()
 
 
-def gyro_straight(distance_mm, speed):
-
-    distance_driven = 0
-    wheels.settings(speed)
-    while distance_driven <= distance_mm - 50:  # Check if the distance has been covered
-        print(hub.imu.heading())
-        # current_angle = hub.imu.heading()
-        current_angle = 0
-
-        # If the robot drifts from the straight line, correct by adjusting the motor speeds
-        if current_angle == 0:  # Robot is turning to the right
-            wheels.straight(50, wait=False)
-            distance_driven += 50
-        else:
-            gyro_abs(0, 200)
-
-    for _ in range(0, 10):
-        wheels.straight(10)
-    # Stop when the target distance is reached
-    wheels.stop()
-
-
 def reset():
     hub.imu.reset_heading(0)
     right_wheel.reset_angle(0)
@@ -97,6 +75,9 @@ print(map_sensor.hsv())
 def black_run():
     reset()
     hub.display.number(1)
+    wheels.settings(600, 600)
+    wheels.straight(-10000)
+
     wheels.settings(turn_rate=100)
     left_arm.run_angle(speed=100, rotation_angle=-90, wait=False)  # pick up stuff
     wheels.straight(-500)
@@ -129,37 +110,51 @@ def red_run():
     reset()
     hub.display.number(2)
     wheels.settings(500, 250)
-    wheels.straight(380)
+    wheels.straight(420)
     # gyro_abs(45, 25)
     wheels.turn(45)
     wheels.settings(500, 100)  # slows down so the thingy doesn't fall back
     wheels.straight(280)
 
     # Turn to trident
+    print("turn to trident")
     left_wheel.run_angle(360, 165, then=Stop.NONE)
     wheels.settings(300, 600)
-    wheels.straight(50)  # Drive to trident
+    wheels.straight(60)  # Drive to trident
 
-    # Pickup trident
+    # Pick up trident
+    print("pick up trident")
     left_arm.run_angle(750, -220)
     wait(500)
     left_arm.run_angle(250, 250)
     wait(350)
-    wheels.straight(100)
+    wheels.straight(80)
     wheels.turn(-45)
     wait(350)
-    while not map_sensor.color() == Color.BLACK:
-        wheels.straight(10, then=Stop.HOLD, wait=False)
-    print(map_sensor.color())
+    # x = 0
+    # while map_sensor.color() != Color.BLACK:
+    #     wheels.straight(10, then=Stop.HOLD, wait=True)
+    #     x += 10
+    #     # print(map_sensor.color())
+    # print(x)
+    wheels.straight(190)
 
     # Turn to anglerfish
+    print("turn to anglerfish")
     # wheels.straight(15, Stop.NONE)
-    # wheels.curve(180, -95, Stop.NONE)
-    # wheels.straight(40, Stop.NONE)
-    # wheels.curve(185, -90)
+    wheels.curve(180, -95, Stop.NONE)
+    wheels.straight(55, Stop.NONE)
+    wheels.curve(180, -80)
 
     # Drive to anglerfish
-    # wheels.straight(80)
+    print("drive to anglerfish")
+    wheels.straight(80)
+
+    # Drive to seabed sample
+    print("drive to seabed sample")
+    wheels.straight(-50)
+    wheels.turn(65)
+    # wheels.straight(500)
 
     # wheels.curve(100, -20)
     # wheels.straight(30)
@@ -213,31 +208,43 @@ def yellow_run():
     wheels.settings(800, 200)
     wheels.straight(300)
     right_arm.run_angle(200, -120)
+    right_arm.run_angle(200, 120)
     wheels.straight(700)
+    wheels.settings(200, 200)
+    wheels.straight(-400)
 
 
 def green_run():
     reset()
     hub.display.number(4)
     wheels.settings(600, 250)
-    wheels.straight(500)
-    wheels.straight(-40)
-    wheels.turn(-45)
+    # wheels.straight(500)
+    # wheels.straight(-40)
+    # wheels.turn(-45)
 
-    wheels.straight(350)
-    wheels.turn(90)
-    wheels.straight(400)
-    wheels.turn(-150)
-    wheels.straight(20)
-    wheels.straight(-50)
-    wheels.turn(60)
+    # wheels.straight(350)
+    # wheels.turn(90)
+    # wheels.straight(400)
+    # wheels.turn(-150)
+    # wheels.straight(20)
+    # wheels.straight(-50)
+    # wheels.turn(60)
 
-    wheels.straight(-100)
+    # wheels.straight(-100)
+    wait(1000)
+    right_arm.run_angle(400, -430)
+    right_arm.run_angle(400, 800)
+    wheels.straight(-5000)
 
 
 def white_run():
     hub.display.number(1)
     wheels.settings()
+
+
+def run_straight():
+    wheels.settings(600, 600)
+    wheels.straight(10000)
 
 
 selected = run_sensor.color()
@@ -263,3 +270,8 @@ elif selected == RUN_GREEN:
 #     elif run_sensor.color() == Color.YELLOW:
 #         yellow_run()
 #         print(run_sensor.color())
+
+# if run_sensor.color() == Color.BLACK:
+#     black_run()
+# else:
+#     run_straight()
