@@ -84,8 +84,7 @@ def deg_to_mm(deg: int | float) -> float:
 
 
 def gyro_follow_PID(
-    target_distance, target_angle, base_speed=40, kp=1.6, ki=0.0025, kd=1
-):
+    target_distance, target_angle, base_speed=40, kp=1.6, ki=0.0025, kd=1):
     right_wheel.reset_angle(0)
     left_wheel.reset_angle(0)
     right_wheel.dc(base_speed)
@@ -100,7 +99,7 @@ def gyro_follow_PID(
         error_sum += error  # i
         error_change = error - last_error  # d
         # fix:
-        speed_change = error * kp + error_sum * ki - error_change * kd
+        speed_change = (error * kp + error_sum * ki - error_change * kd)
         right_wheel.dc(base_speed - speed_change)
         left_wheel.dc(base_speed + speed_change)
         wait(5)
@@ -215,12 +214,12 @@ def red_run():
     # wheels.straight(-50)
     # wheels.turn(65)
 
-
 # def run_angle_time_limit(motor, rotate_speed, rotate_angle, stop_type=Stop.HOLD, time_limit_ms = 3):
 #     motor.run_angle(motor, rotate_speed, rotate_angle, stop_type, wait=False)
 #     run_time = StopWatch()
 #     print(motor.done())
 #     motor.stop_type()
+    
 
 
 def yellow_run():
