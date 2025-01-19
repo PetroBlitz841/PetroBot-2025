@@ -5,9 +5,11 @@ from pybricks.pupdevices import Motor, ColorSensor
 from pybricks.parameters import Color, Direction, Port, Stop
 from pybricks.tools import hub_menu
 from pybricks.robotics import DriveBase
-from pybricks.tools import wait
+from pybricks.tools import wait, StopWatch
 
 # Hardware definitions =================================================================
+WHEEL_DIAMETER = 62.4
+
 hub = PrimeHub()
 left_wheel = Motor(Port.C)
 right_wheel = Motor(Port.B, positive_direction=Direction.COUNTERCLOCKWISE)
@@ -15,8 +17,11 @@ left_arm = Motor(Port.E)
 right_arm = Motor(Port.D)
 run_sensor = ColorSensor(Port.F)
 map_sensor = ColorSensor(Port.A)
-wheels = DriveBase(left_wheel, right_wheel, wheel_diameter=62.4, axle_track=129.4)
+wheels = DriveBase(
+    left_wheel, right_wheel, wheel_diameter=WHEEL_DIAMETER, axle_track=129.4
+)
 wheels.use_gyro(True)
+pi = 3.1416
 
 RUN_RED = Color(h=339, s=85, v=94)
 RUN_GREEN = Color(h=154, s=77, v=52)
@@ -68,15 +73,47 @@ def reset():
     wheels.settings(600, 300)
 
 
-print(map_sensor.hsv())
+def deg_to_mm(deg: int | float) -> float:
+    distance = (pi * WHEEL_DIAMETER * deg) / 360
+    return distance
+
+
+def gyro_follow_PID(
+    target_distance, target_angle, base_speed=40, kp=1.6, ki=0.0025, kd=1
+):
+    right_wheel.reset_angle(0)
+    left_wheel.reset_angle(0)
+    right_wheel.dc(base_speed)
+    left_wheel.dc(base_speed)
+    error_sum = 0
+    last_error = 0
+    distance_traveled = (
+        deg_to_mm(right_wheel.angle()) + deg_to_mm(left_wheel.angle())
+    ) / 2
+    while distance_traveled < target_distance:
+        error = target_angle - hub.imu.heading()  # p
+        error_sum += error  # i
+        error_change = error - last_error  # d
+        # fix:
+        speed_change = error * kp + error_sum * ki - error_change * kd
+        right_wheel.dc(base_speed - speed_change)
+        left_wheel.dc(base_speed + speed_change)
+        wait(5)
+        last_error = error
+        distance_traveled = (
+            deg_to_mm(right_wheel.angle()) + deg_to_mm(left_wheel.angle())
+        ) / 2
+
+
+# print(map_sensor.hsv())
 
 
 # Runs =================================================================================
 def black_run():
     reset()
     hub.display.number(1)
-    wheels.settings(600, 600)
-    wheels.straight(-10000)
+    # wheels.settings(600, 600)
+    # wheels.straight(-10000)
 
     wheels.settings(turn_rate=100)
     left_arm.run_angle(speed=100, rotation_angle=-90, wait=False)  # pick up stuff
@@ -202,16 +239,30 @@ def red_run():
     # # left_wheel.run_angle(200)
 
 
+# def run_angle_time_limit(motor, rotate_speed, rotate_angle, stop_type=Stop.HOLD, time_limit_ms = 3):
+#     motor.run_angle(motor, rotate_speed, rotate_angle, stop_type, wait=False)
+#     run_time = StopWatch()
+#     print(motor.done())
+#     motor.stop_type()
+
+
 def yellow_run():
     reset()
+    right_arm.hold()
     hub.display.number(3)
-    wheels.settings(800, 200)
+    wheels.settings(straight_speed=200, straight_acceleration=200)
+    wheels.straight(220)
+    # right_arm.run_angle_time_limit(rotate_speed=200, rotate_angle=-170)
+    right_arm.run_time(-200, 1000)
     wheels.straight(300)
-    right_arm.run_angle(200, -120)
-    right_arm.run_angle(200, 120)
-    wheels.straight(700)
+    wheels.straight(-20)
+    right_arm.run_target(speed=200, rotation_angle=220)
+    wheels.straight(400)
+    right_arm.run_angle(speed=200, rotation_angle=-220)
     wheels.settings(200, 200)
     wheels.straight(-400)
+    wheels.straight(700)
+    print("done")
 
 
 def green_run():
