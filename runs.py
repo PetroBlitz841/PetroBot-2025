@@ -26,7 +26,7 @@ RUN_RED = Color(h=339, s=85, v=94)
 RUN_GREEN = Color(h=154, s=77, v=52)
 DARK_BLUE_MAT = Color(h=210, s=37, v=32)
 RIZZ_BLACK = Color(h=189, s=27, v=31)
-RUN_COLORS = [Color.BLACK, RUN_RED, Color.YELLOW, RUN_GREEN]
+RUN_COLORS = [Color.BLACK, RUN_RED, Color.YELLOW, RUN_GREEN, Color.WHITE]
 
 COLOR_LIST = [
     Color.BLACK,
@@ -84,7 +84,8 @@ def deg_to_mm(deg: int | float) -> float:
 
 
 def gyro_follow_PID(
-    target_distance, target_angle, base_speed=40, kp=1.6, ki=0.0025, kd=1):
+    target_distance, target_angle, base_speed=40, kp=1.6, ki=0.0025, kd=1
+):
     right_wheel.reset_angle(0)
     left_wheel.reset_angle(0)
     right_wheel.dc(base_speed)
@@ -99,7 +100,7 @@ def gyro_follow_PID(
         error_sum += error  # i
         error_change = error - last_error  # d
         # fix:
-        speed_change = (error * kp + error_sum * ki - error_change * kd)
+        speed_change = error * kp + error_sum * ki - error_change * kd
         right_wheel.dc(base_speed - speed_change)
         left_wheel.dc(base_speed + speed_change)
         wait(5)
@@ -214,12 +215,12 @@ def red_run():
     # wheels.straight(-50)
     # wheels.turn(65)
 
+
 # def run_angle_time_limit(motor, rotate_speed, rotate_angle, stop_type=Stop.HOLD, time_limit_ms = 3):
 #     motor.run_angle(motor, rotate_speed, rotate_angle, stop_type, wait=False)
 #     run_time = StopWatch()
 #     print(motor.done())
 #     motor.stop_type()
-    
 
 
 def yellow_run():
@@ -266,18 +267,31 @@ def green_run():
 
 def white_run():
     hub.display.number(1)
-    wheels.settings()
+    wheels.settings(600, 600)
+    wheels.straight(300)
+    wheels.turn(50)
+    wheels.straight(425)
+    wheels.turn(34)
+    wheels.settings(300)
+    wheels.straight(10000, then=Stop.HOLD, wait=False)
+    while map_sensor.color() != RIZZ_BLACK:
+        pass
+    wheels.stop()
+    wheels.straight(60)
+    right_arm.run_angle(speed=100, rotation_angle=50)
 
 
 def run_straight():
     wheels.settings(600, 600)
-    wheels.straight(10000)
+    wheels.straight()
 
 
 selected = run_sensor.color()
 print(run_sensor.color())
 if selected == Color.BLACK:
     black_run()
+elif selected == Color.WHITE:
+    white_run()
 elif selected == RUN_RED:
     red_run()
 elif selected == Color.YELLOW:
