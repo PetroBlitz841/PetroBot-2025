@@ -148,65 +148,76 @@ def black_run():
 
 
 def red_run():
-
     reset()
     hub.display.number(2)
-    wheels.settings(500, 250)
-    wheels.straight(415)
-    # gyro_abs(45, 25)
-    wheels.turn(45)
-    wheels.settings(500, 100)  # slows down so the thingy doesn't fall back
-    wheels.straight(280)
+    # wheels.settings(500, 250)
+    # wheels.straight(415)
+    # # gyro_abs(45, 25)
+    # wheels.turn(45)
+    # wheels.settings(500, 100)  # slows down so the thingy doesn't fall back
+    # wheels.straight(280)
 
-    # Turn to trident
-    left_wheel.run_angle(360, 165, then=Stop.NONE)
-    wheels.settings(300, 600)
-    wheels.straight(70)  # Drive to trident
+    # # Turn to trident
+    # left_wheel.run_angle(360, 165, then=Stop.NONE)
+    # wheels.settings(300, 600)
+    # wheels.straight(70)  # Drive to trident
 
-    # Pick up trident
-    left_arm.run_angle(speed=750, rotation_angle=-220)
-    wait(500)
-    left_arm.run_time(speed=150, time=1800)
-    wait(350)
-    wheels.straight(80)
-    wheels.turn(-40)
-    wait(350)
-    wheels.settings(straight_speed=300)
+    # # Pick up trident
+    # left_arm.run_angle(speed=750, rotation_angle=-220)
+    # wait(500)
+    # left_arm.run_time(speed=150, time=1800)
+    # wait(350)
+    # wheels.straight(80)
+    # wheels.turn(-40)
+    # wait(350)
+    # wheels.settings(straight_speed=300)
+    # wheels.straight(10000, then=Stop.HOLD, wait=False)
+    # while map_sensor.color() != RIZZ_BLACK:
+    #     pass
+    # wheels.stop()
+    # wheels.straight(100)
+    # wheels.settings(300, 600)
+    # wheels.turn(-90)
+    # wheels.straight(455)
+    # wheels.turn(-90)
+    # wheels.straight(240)
+    # wheels.straight(-205)
+    # wheels.turn(90)
+    # wheels.settings(1000, 1000)
+    # wheels.straight(350)
+    # wheels.settings(300, 600)
+    # wheels.straight(-250)
+    wheels.settings(600, 600)
+    wheels.straight(300)
+    wheels.turn(50)
+    wheels.straight(425)
+    wheels.turn(34)
+    wheels.settings(300)
     wheels.straight(10000, then=Stop.HOLD, wait=False)
     while map_sensor.color() != RIZZ_BLACK:
         pass
     wheels.stop()
-    wheels.straight(100)
-    wheels.settings(300, 600)
-    wheels.turn(-90)
-    wheels.straight(455)
-    wheels.turn(-90)
-    wheels.straight(240)
-    wheels.straight(-205)
-    wheels.turn(90)
-    wheels.settings(1000, 1000)
-    wheels.straight(350)
-    wheels.settings(300, 600)
-    wheels.straight(-250)
+    wheels.straight(60)
+    right_arm.run_angle(speed=100, rotation_angle=50)
 
 
 def yellow_run():
-    reset()
-    right_arm.hold()
     hub.display.number(3)
-    wheels.settings(straight_speed=200, straight_acceleration=200)
-    wheels.straight(220)
-    # right_arm.run_angle_time_limit(rotate_speed=200, rotate_angle=-170)
-    right_arm.run_time(-200, 1000)
-    wheels.straight(300)
-    wheels.straight(-20)
-    right_arm.run_target(speed=200, rotation_angle=220)
-    wheels.straight(400)
-    right_arm.run_angle(speed=200, rotation_angle=-220)
-    wheels.settings(200, 200)
-    wheels.straight(-400)
-    wheels.straight(700)
-    print("done")
+    reset()
+    # right_arm.run_angle(300, 60, then=Stop.HOLD, wait=False)
+    # wheels.settings(straight_speed=200, straight_acceleration=200)
+    # wheels.straight(220)
+    # # right_arm.run_angle_time_limit(rotate_speed=200, rotate_angle=-170)
+    # right_arm.run_time(-200, 1000)
+    # wheels.straight(300)
+    # wheels.straight(-170)
+    # right_arm.run_target(speed=200, rotation_angle=220)
+    # wheels.straight(400)
+    # right_arm.run_angle(speed=200, rotation_angle=-220)
+    # wheels.settings(200, 200)
+    # wheels.straight(-400)
+    # wheels.straight(700)
+    # print("done")
 
 
 def green_run():
@@ -229,7 +240,7 @@ def green_run():
 
 
 def white_run():
-    hub.display.number(1)
+    hub.display.number(5)
     wheels.settings(600, 600)
     wheels.straight(300)
     wheels.turn(50)
