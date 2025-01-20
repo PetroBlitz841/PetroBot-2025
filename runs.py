@@ -152,7 +152,7 @@ def red_run():
     reset()
     hub.display.number(2)
     wheels.settings(500, 250)
-    wheels.straight(420)
+    wheels.straight(415)
     # gyro_abs(45, 25)
     wheels.turn(45)
     wheels.settings(500, 100)  # slows down so the thingy doesn't fall back
@@ -161,7 +161,7 @@ def red_run():
     # Turn to trident
     left_wheel.run_angle(360, 165, then=Stop.NONE)
     wheels.settings(300, 600)
-    wheels.straight(60)  # Drive to trident
+    wheels.straight(70)  # Drive to trident
 
     # Pick up trident
     left_arm.run_angle(speed=750, rotation_angle=-220)
@@ -169,58 +169,25 @@ def red_run():
     left_arm.run_time(speed=150, time=1800)
     wait(350)
     wheels.straight(80)
-    wheels.turn(-45)
+    wheels.turn(-40)
     wait(350)
     wheels.settings(straight_speed=300)
     wheels.straight(10000, then=Stop.HOLD, wait=False)
     while map_sensor.color() != RIZZ_BLACK:
         pass
     wheels.stop()
-    # wait(300)
     wheels.straight(100)
     wheels.settings(300, 600)
     wheels.turn(-90)
-    wheels.straight(450)
+    wheels.straight(455)
     wheels.turn(-90)
-    wheels.straight(185)
-    # wheels.turn(35)
-    # wheels.straight(75)
-    # wheels.turn(-13)
-    # wheels.straight(150)
-    # finished angler fish m05
-    wheels.turn(92)
-    wheels.straight(130)
-    wheels.settings(200)
-    wheels.straight(50)
-    wheels.settings(250, 250)
-    right_arm.run_angle(600, -400)
-
-    wheels.settings(turn_rate=300, turn_acceleration=500)
-    wheels.turn(40)
-    wheels.straight(-200)
-    wheels.straight(500)
-    # # Turn to anglerfish
-    # print("turn to anglerfish")
-    # # wheels.straight(15, Stop.NONE)
-    # wheels.curve(180, -95, Stop.NONE)
-    # wheels.straight(55, Stop.NONE)
-    # wheels.curve(180, -80)
-
-    # # Drive to anglerfish
-    # print("drive to anglerfish")
-    # wheels.straight(80)
-
-    # # Drive to seabed sample
-    # print("drive to seabed sample")
-    # wheels.straight(-50)
-    # wheels.turn(65)
-
-
-# def run_angle_time_limit(motor, rotate_speed, rotate_angle, stop_type=Stop.HOLD, time_limit_ms = 3):
-#     motor.run_angle(motor, rotate_speed, rotate_angle, stop_type, wait=False)
-#     run_time = StopWatch()
-#     print(motor.done())
-#     motor.stop_type()
+    wheels.straight(240)
+    wheels.straight(-205)
+    wheels.turn(90)
+    wheels.settings(1000, 1000)
+    wheels.straight(350)
+    wheels.settings(300, 600)
+    wheels.straight(-250)
 
 
 def yellow_run():
@@ -245,24 +212,20 @@ def yellow_run():
 def green_run():
     reset()
     hub.display.number(4)
-    wheels.settings(600, 250)
-    # wheels.straight(500)
-    # wheels.straight(-40)
-    # wheels.turn(-45)
-
-    # wheels.straight(350)
-    # wheels.turn(90)
-    # wheels.straight(400)
-    # wheels.turn(-150)
+    wheels.settings(300, 600)
+    wheels.straight(450)  # pick up tamnoon
+    wheels.straight(-50)
+    # go to green circle
+    wheels.turn(135)
+    wheels.turn(-90)
+    wheels.straight(350)
+    wheels.turn(-90)
     # wheels.straight(20)
-    # wheels.straight(-50)
-    # wheels.turn(60)
-
-    # wheels.straight(-100)
-    wait(1000)
-    right_arm.run_angle(400, -430)
-    right_arm.run_angle(400, 800)
-    wheels.straight(-5000)
+    # complete green circle
+    right_arm.run_time(speed=-360, time=1500)
+    right_arm.run_time(speed=360, time=1500)
+    # leave the tamnoon in the circle
+    wheels.straight(285)
 
 
 def white_run():
