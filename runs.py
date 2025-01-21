@@ -27,7 +27,7 @@ RUN_GREEN = Color(h=154, s=77, v=52)
 DARK_BLUE_MAT = Color(h=210, s=37, v=32)
 RIZZ_BLACK = Color(h=189, s=27, v=31)
 RUN_YELLOW = Color(h=41, s=68, v=100)
-RUN_COLORS = [Color.BLACK, RUN_RED, Color.YELLOW, RUN_GREEN, Color.WHITE]
+RUN_COLORS = [Color.BLACK, RUN_RED, RUN_YELLOW, RUN_GREEN, Color.WHITE]
 
 COLOR_LIST = [
     Color.BLACK,
@@ -240,25 +240,32 @@ def yellow_run():
     right_arm.run_time(speed=-200, time=900)
     # get in position to grab boat -------
     right_arm.run_time(speed=200, time=1000)
+    right_arm.hold()
+
     # --------------------------------------
-    wheels.straight(440)
-    wheels.straight(150)
+    wheels.straight(440, then=Stop.NONE)
+    wheels.straight(190)
     wheels.settings(straight_speed=60)
     wheels.straight(-150)
 
     wait(500)
     wheels.settings(straight_speed=150)
+    right_arm.hold()
     wheels.straight(-150)
-    wheels.settings(straight_speed=200, straight_acceleration=200)
+    wheels.settings(straight_speed=500, straight_acceleration=200)
     wheels.turn(-45)
-    wheels.straight(250)
+    wheels.straight(170, wait=False)
+    right_arm.run_time(speed=100, time=1000)
+    right_arm.hold()
     wheels.settings(straight_speed=800, straight_acceleration=300)
-    wheels.curve(450, 95, then=Stop.NONE)
+    wheels.curve(360, 80, then=Stop.NONE)
     wheels.curve(400, -100)
 
 
 def green_run():
     reset()
+    print(run_sensor.color())
+    print(run_sensor.hsv())
     hub.display.number(4)
     wheels.settings(300, 600)
     wheels.straight(445)  # pick up tamnoon
