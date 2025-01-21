@@ -26,6 +26,7 @@ RUN_RED = Color(h=339, s=85, v=94)
 RUN_GREEN = Color(h=154, s=77, v=52)
 DARK_BLUE_MAT = Color(h=210, s=37, v=32)
 RIZZ_BLACK = Color(h=189, s=27, v=31)
+RUN_YELLOW = Color(h=41, s=68, v=100)
 RUN_COLORS = [Color.BLACK, RUN_RED, Color.YELLOW, RUN_GREEN, Color.WHITE]
 
 COLOR_LIST = [
@@ -38,6 +39,7 @@ COLOR_LIST = [
     Color.WHITE,
     DARK_BLUE_MAT,
     RIZZ_BLACK,
+    RUN_YELLOW,
 ]
 
 
@@ -148,93 +150,132 @@ def black_run():
 
 
 def red_run():
+
     reset()
     hub.display.number(2)
-    # wheels.settings(500, 250)
-    # wheels.straight(415)
-    # # gyro_abs(45, 25)
-    # wheels.turn(45)
-    # wheels.settings(500, 100)  # slows down so the thingy doesn't fall back
-    # wheels.straight(280)
+    wheels.settings(500, 250)
+    wheels.straight(415)
+    # gyro_abs(45, 25)
+    wheels.turn(45)
+    wheels.settings(500, 100)  # slows down so the thingy doesn't fall back
+    wheels.straight(280)
 
-    # # Turn to trident
-    # left_wheel.run_angle(360, 165, then=Stop.NONE)
-    # wheels.settings(300, 600)
-    # wheels.straight(70)  # Drive to trident
+    # Turn to trident
+    left_wheel.run_angle(360, 165, then=Stop.NONE)
+    wheels.settings(300, 600)
+    wheels.straight(70)  # Drive to trident
 
-    # # Pick up trident
-    # left_arm.run_angle(speed=750, rotation_angle=-220)
-    # wait(500)
-    # left_arm.run_time(speed=150, time=1800)
-    # wait(350)
-    # wheels.straight(80)
-    # wheels.turn(-40)
-    # wait(350)
-    # wheels.settings(straight_speed=300)
-    # wheels.straight(10000, then=Stop.HOLD, wait=False)
-    # while map_sensor.color() != RIZZ_BLACK:
-    #     pass
-    # wheels.stop()
-    # wheels.straight(100)
-    # wheels.settings(300, 600)
-    # wheels.turn(-90)
-    # wheels.straight(455)
-    # wheels.turn(-90)
-    # wheels.straight(240)
-    # wheels.straight(-205)
-    # wheels.turn(90)
-    # wheels.settings(1000, 1000)
-    # wheels.straight(350)
-    # wheels.settings(300, 600)
-    # wheels.straight(-250)
-    wheels.settings(600, 600)
-    wheels.straight(300)
-    wheels.turn(50)
-    wheels.straight(425)
-    wheels.turn(34)
-    wheels.settings(300)
+    # Pick up trident
+    left_arm.run_angle(speed=750, rotation_angle=-220)
+    wait(500)
+    left_arm.run_time(speed=150, time=1800)
+    wait(350)
+    wheels.straight(80)
+    wheels.turn(-40)
+    wait(350)
+    wheels.settings(straight_speed=300)
     wheels.straight(10000, then=Stop.HOLD, wait=False)
     while map_sensor.color() != RIZZ_BLACK:
         pass
     wheels.stop()
-    wheels.straight(60)
-    right_arm.run_angle(speed=100, rotation_angle=50)
+    # wait(300)
+    wheels.straight(100)
+    wheels.settings(300, 600)
+    wheels.turn(-90)
+    wheels.straight(455)
+    wheels.turn(-90)
+    wheels.straight(240)
+    wheels.straight(-205)
+    wheels.turn(90)
+    wheels.settings(1000, 1000)
+    wheels.straight(350)
+    wheels.settings(300, 600)
+    wheels.straight(-250)
+    # wheels.turn(35)
+    # wheels.straight(75)
+    # wheels.turn(-13)
+    # wheels.straight(150)
+    # finished angler fish m05
+    # wheels.turn(92)
+    # wheels.straight(130)
+    # wheels.settings(200)
+    # wheels.straight(50)
+    # wheels.settings(250, 250)
+    # right_arm.run_angle(600, -400)
+
+    # wheels.settings(turn_rate=300, turn_acceleration=500)
+    # wheels.turn(40)
+    # wheels.straight(-200)
+    # wheels.straight(500)
+    # # Turn to anglerfish
+    # print("turn to anglerfish")
+    # # wheels.straight(15, Stop.NONE)
+    # wheels.curve(180, -95, Stop.NONE)
+    # wheels.straight(55, Stop.NONE)
+    # wheels.curve(180, -80)
+
+    # # Drive to anglerfish
+    # print("drive to anglerfish")
+    # wheels.straight(80)
+
+    # # Drive to seabed sample
+    # print("drive to seabed sample")
+    # wheels.straight(-50)
+    # wheels.turn(65)
+
+
+# def run_angle_time_limit(motor, rotate_speed, rotate_angle, stop_type=Stop.HOLD, time_limit_ms = 3):
+#     motor.run_angle(motor, rotate_speed, rotate_angle, stop_type, wait=False)
+#     run_time = StopWatch()
+#     print(motor.done())
+#     motor.stop_type()
 
 
 def yellow_run():
-    hub.display.number(3)
     reset()
-    # right_arm.run_angle(300, 60, then=Stop.HOLD, wait=False)
-    # wheels.settings(straight_speed=200, straight_acceleration=200)
-    # wheels.straight(220)
-    # # right_arm.run_angle_time_limit(rotate_speed=200, rotate_angle=-170)
-    # right_arm.run_time(-200, 1000)
-    # wheels.straight(300)
-    # wheels.straight(-170)
-    # right_arm.run_target(speed=200, rotation_angle=220)
-    # wheels.straight(400)
-    # right_arm.run_angle(speed=200, rotation_angle=-220)
-    # wheels.settings(200, 200)
-    # wheels.straight(-400)
-    # wheels.straight(700)
-    # print("done")
+    right_arm.hold()
+    hub.display.number(3)
+    wheels.settings(straight_speed=200, straight_acceleration=200)
+    wheels.straight(280)
+    right_arm.run_time(speed=-200, time=900)
+    # get in position to grab boat -------
+    right_arm.run_time(speed=200, time=1000)
+    # --------------------------------------
+    wheels.straight(440)
+    wheels.straight(150)
+    wheels.settings(straight_speed=60)
+    wheels.straight(-150)
+
+    wait(500)
+    wheels.settings(straight_speed=150)
+    wheels.straight(-150)
+    wheels.settings(straight_speed=200, straight_acceleration=200)
+    wheels.turn(-45)
+    wheels.straight(250)
+    wheels.settings(straight_speed=800, straight_acceleration=300)
+    wheels.curve(450, 95, then=Stop.NONE)
+    wheels.curve(400, -100)
 
 
 def green_run():
     reset()
     hub.display.number(4)
     wheels.settings(300, 600)
-    wheels.straight(450)  # pick up tamnoon
-    wheels.straight(-50)
+    wheels.straight(445)  # pick up tamnoon
+    wheels.settings(turn_acceleration=60)
+    wheels.straight(-10)
     # go to green circle
     wheels.turn(135)
-    wheels.turn(-90)
-    wheels.straight(350)
-    wheels.turn(-90)
-    # wheels.straight(20)
+    wheels.turn(-70)
+    wheels.straight(400)
+    wheels.turn(-135)
+    wheels.straight(60)
+    wheels.turn(25)
+    wheels.straight(135)
+
     # complete green circle
-    right_arm.run_time(speed=-360, time=1500)
-    right_arm.run_time(speed=360, time=1500)
+    right_arm.run_time(speed=-360, time=700)
+    right_arm.run_time(speed=1000, time=3000)
     # leave the tamnoon in the circle
     wheels.straight(285)
 
@@ -268,7 +309,7 @@ elif selected == Color.WHITE:
     white_run()
 elif selected == RUN_RED:
     red_run()
-elif selected == Color.YELLOW:
+elif selected == RUN_YELLOW:
     yellow_run()
 elif selected == RUN_GREEN:
     green_run()

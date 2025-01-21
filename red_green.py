@@ -229,6 +229,13 @@ def red_run():
 #     motor.stop_type()
 
 
+# def run_angle_time_limit(motor, rotate_speed, rotate_angle, stop_type=Stop.HOLD, time_limit_ms = 3):
+#     motor.run_angle(motor, rotate_speed, rotate_angle, stop_type, wait=False)
+#     run_time = StopWatch()
+#     print(motor.done())
+#     motor.stop_type()
+
+
 def yellow_run():
     reset()
     right_arm.hold()
