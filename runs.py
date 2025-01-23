@@ -259,7 +259,7 @@ def yellow_run():
     right_arm.hold()
     wheels.settings(straight_speed=800, straight_acceleration=300)
     wheels.curve(360, 80, then=Stop.NONE)
-    wheels.curve(400, -100)
+    wheels.curve(400, -70)
 
 
 def green_run():
@@ -296,11 +296,12 @@ def white_run():
     wheels.turn(34)
     wheels.settings(300)
     wheels.straight(10000, then=Stop.HOLD, wait=False)
-    while map_sensor.color() != RIZZ_BLACK:
+    while map_sensor.reflection() > 20:
         pass
     wheels.stop()
-    wheels.straight(60)
+    wheels.straight(70)
     right_arm.run_angle(speed=100, rotation_angle=50)
+    # print(map_sensor.reflection())
 
 
 def run_straight():
