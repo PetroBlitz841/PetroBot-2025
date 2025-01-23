@@ -146,6 +146,7 @@ def black_run():
     wheels.straight(40)
     wheels.straight(-110)
     left_wheel.run_angle(240, 120)
+    wheels.settings(1000, 800)
     wheels.straight(-1000)
 
 
@@ -264,27 +265,29 @@ def yellow_run():
 
 def green_run():
     reset()
-    print(run_sensor.color())
-    print(run_sensor.hsv())
     hub.display.number(4)
     wheels.settings(300, 600)
     wheels.straight(445)  # pick up tamnoon
-    wheels.settings(turn_acceleration=60)
-    wheels.straight(-10)
+    # wheels.settings(turn_acceleration=60)
+    wheels.straight(-20)
     # go to green circle
     wheels.turn(135)
-    wheels.turn(-70)
-    wheels.straight(400)
-    wheels.turn(-135)
-    wheels.straight(60)
-    wheels.turn(25)
-    wheels.straight(135)
+    wheels.straight(50)
+    wheels.turn(-80)
+    wheels.straight(330)
+    wheels.turn(-95)
+    wheels.straight(210)
 
     # complete green circle
     right_arm.run_time(speed=-360, time=700)
-    right_arm.run_time(speed=1000, time=3000)
+    right_arm.run_time(speed=600, time=1500)
     # leave the tamnoon in the circle
-    wheels.straight(285)
+    wheels.straight(100)
+    wheels.turn(-30)
+    wheels.straight(100)
+    wheels.settings(straight_speed=1000)
+    wheels.curve(radius=-300, angle=-90, then=Stop.NONE)
+    wheels.straight(-500)
 
 
 def white_run():
@@ -299,9 +302,8 @@ def white_run():
     while map_sensor.reflection() > 20:
         pass
     wheels.stop()
-    wheels.straight(70)
+    wheels.straight(60)
     right_arm.run_angle(speed=100, rotation_angle=50)
-    # print(map_sensor.reflection())
 
 
 def run_straight():
