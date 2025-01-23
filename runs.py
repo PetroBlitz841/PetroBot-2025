@@ -27,6 +27,8 @@ RUN_GREEN = Color(h=154, s=77, v=52)
 DARK_BLUE_MAT = Color(h=210, s=37, v=32)
 RIZZ_BLACK = Color(h=189, s=27, v=31)
 RUN_YELLOW = Color(h=41, s=68, v=100)
+whale_blue = Color(h=202, s=62, v=60)
+sea_blue = Color(h=203, s=67, v=57)
 RUN_COLORS = [Color.BLACK, RUN_RED, RUN_YELLOW, RUN_GREEN, Color.WHITE]
 
 COLOR_LIST = [
@@ -40,6 +42,8 @@ COLOR_LIST = [
     DARK_BLUE_MAT,
     RIZZ_BLACK,
     RUN_YELLOW,
+    whale_blue,
+    sea_blue,
 ]
 
 
@@ -140,10 +144,11 @@ def black_run():
     wheels.straight(-260)
     wheels.turn(58)
     right_arm.run_angle(250, 160)
-    wheels.straight(65)
+    wheels.straight(80)
     wheels.turn(-15)
-    right_arm.run_angle(250, 450)
-    wheels.straight(40)
+    # right_arm.run_angle(250, 450)
+    right_arm.run_time(250, 1000)
+    wheels.straight(55)
     wheels.straight(-110)
     left_wheel.run_angle(240, 120)
     wheels.settings(1000, 800)
@@ -190,8 +195,15 @@ def red_run():
     wheels.turn(90)
     wheels.settings(1000, 1000)
     wheels.straight(350)
-    wheels.settings(300, 600)
-    wheels.straight(-250)
+    wheels.settings(200, 200)
+    wheels.straight(-120)
+    # go home ._.
+    wheels.settings(900, 800)
+
+    wheels.turn(-90)
+    wheels.straight(400)
+    wheels.curve(480, -110, then=Stop.NONE)
+    wheels.straight(100)
     # wheels.turn(35)
     # wheels.straight(75)
     # wheels.turn(-13)
@@ -246,7 +258,7 @@ def yellow_run():
     # --------------------------------------
     wheels.straight(440, then=Stop.NONE)
     wheels.straight(190)
-    wheels.settings(straight_speed=60)
+    wheels.settings(straight_speed=60, straight_acceleration=60)
     wheels.straight(-150)
 
     wait(500)
@@ -259,8 +271,13 @@ def yellow_run():
     right_arm.run_time(speed=100, time=1000)
     right_arm.hold()
     wheels.settings(straight_speed=800, straight_acceleration=300)
+    wheels.settings(straight_speed=900, straight_acceleration=800)
     wheels.curve(360, 80, then=Stop.NONE)
     wheels.curve(400, -70)
+
+
+# while True:
+#     print(print(map_sensor.hsv()))
 
 
 def green_run():
