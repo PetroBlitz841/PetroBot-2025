@@ -152,7 +152,8 @@ def black_run():
     wheels.straight(-110)
     left_wheel.run_angle(240, 150)
     wheels.settings(1000, 800)
-    wheels.straight(-1000)
+    wheels.straight(-800)
+    wheels.turn(180)
 
 
 def red_run():
@@ -296,8 +297,8 @@ def green_run():
     wheels.straight(210)
 
     # complete green circle
-    right_arm.run_time(speed=-360, time=700)
-    right_arm.run_time(speed=600, time=1500)
+    right_arm.run_time(speed=-360, time=2000)
+    right_arm.run_time(speed=600, time=2000)
     # leave the tamnoon in the circle
     wheels.straight(100)
     wheels.turn(-30)
