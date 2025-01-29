@@ -150,7 +150,7 @@ def black_run():
     right_arm.run_time(250, 1000)
     wheels.straight(55)
     wheels.straight(-110)
-    left_wheel.run_angle(240, 120)
+    left_wheel.run_angle(240, 150)
     wheels.settings(1000, 800)
     wheels.straight(-1000)
 
