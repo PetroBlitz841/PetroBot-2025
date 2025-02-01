@@ -21,7 +21,7 @@ wheels = DriveBase(
     left_wheel, right_wheel, wheel_diameter=WHEEL_DIAMETER, axle_track=129.4
 )
 wheels.use_gyro(True)
-pi = 3.1416
+pi = 3.1415926535898
 RUN_RED = Color(h=339, s=85, v=94)
 RUN_GREEN = Color(h=154, s=77, v=52)
 DARK_BLUE_MAT = Color(h=210, s=37, v=32)
@@ -322,6 +322,7 @@ def white_run():
     wheels.stop()
     wheels.straight(60)
     right_arm.run_angle(speed=100, rotation_angle=50)
+    wheels.straight(-200)
 
 
 def run_straight():
