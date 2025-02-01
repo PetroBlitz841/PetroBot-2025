@@ -189,12 +189,12 @@ def red_run():
     wheels.straight(100)
     wheels.settings(300, 600)
     wheels.turn(-90)
-    wheels.straight(455)
+    wheels.straight(460)
     wheels.turn(-90)
     wheels.straight(240)
     wheels.straight(-205)
     wheels.turn(90)
-    wheels.settings(1000, 1000)
+    wheels.settings(1000, 8000)
     wheels.straight(350)
     wheels.settings(200, 200)
     wheels.straight(-120)
@@ -284,7 +284,7 @@ def yellow_run():
 def green_run():
     reset()
     hub.display.number(4)
-    wheels.settings(300, 600)
+    wheels.settings(300, 500)
     wheels.straight(445)  # pick up tamnoon
     # wheels.settings(turn_acceleration=60)
     wheels.straight(-20)
@@ -322,12 +322,13 @@ def white_run():
     wheels.stop()
     wheels.straight(60)
     right_arm.run_angle(speed=100, rotation_angle=50)
+    wait(100)
     wheels.straight(-200)
 
 
 def run_straight():
     wheels.settings(600, 600)
-    wheels.straight()
+    wheels.straight(100000)
 
 
 selected = run_sensor.color()
