@@ -1,9 +1,8 @@
-# pylint: disable=C0114
-# pylint: disable=C0116
+# pylint: disable=C0114, C0116, W0611, C0103, R0913, E1123, E1111
+
 from pybricks.hubs import PrimeHub
 from pybricks.pupdevices import Motor, ColorSensor
 from pybricks.parameters import Color, Direction, Port, Stop
-from pybricks.tools import hub_menu
 from pybricks.robotics import DriveBase
 from pybricks.tools import wait, StopWatch
 
@@ -22,6 +21,9 @@ wheels = DriveBase(
 )
 wheels.use_gyro(True)
 pi = 3.1415926535898
+
+# color definitions =================================================================
+
 RUN_RED = Color(h=339, s=85, v=94)
 RUN_GREEN = Color(h=154, s=77, v=52)
 DARK_BLUE_MAT = Color(h=210, s=37, v=32)
@@ -49,11 +51,11 @@ COLOR_LIST = [
 
 map_sensor.detectable_colors(COLOR_LIST)
 run_sensor.detectable_colors(RUN_COLORS)
-# print(run_sensor.hsv)
 
 
-# Functions ============================================================================
+# Utility Functions ============================================================================
 def gyro_abs(target, base_speed, kp=0.16, then: Stop = Stop.HOLD):
+    """turns the robot to a given angle relative to the launch angle"""
     STOP_RANGE = 0.05
     while not (
         hub.imu.heading() - STOP_RANGE < target < hub.imu.heading() + STOP_RANGE
@@ -76,6 +78,7 @@ def gyro_abs(target, base_speed, kp=0.16, then: Stop = Stop.HOLD):
 
 
 def reset():
+    """converts the motor's degrees to the robot's distance"""
     hub.imu.reset_heading(0)
     right_wheel.reset_angle(0)
     left_wheel.reset_angle(0)
@@ -85,6 +88,7 @@ def reset():
 
 
 def deg_to_mm(deg: int | float) -> float:
+    """converts the motor's degrees to the robot's distance"""
     distance = (pi * WHEEL_DIAMETER * deg) / 360
     return distance
 
@@ -92,6 +96,11 @@ def deg_to_mm(deg: int | float) -> float:
 def gyro_follow_PID(
     target_distance, target_angle, base_speed=40, kp=1.6, ki=0.0025, kd=1
 ):
+    """function for driving straight
+    kp - proportinal correction multiplyer
+    ki - integral correction multiplyer
+    kd - derivative correction multiplyer
+    """
     right_wheel.reset_angle(0)
     left_wheel.reset_angle(0)
     right_wheel.dc(base_speed)
@@ -105,7 +114,7 @@ def gyro_follow_PID(
         error = target_angle - hub.imu.heading()  # p
         error_sum += error  # i
         error_change = error - last_error  # d
-        # fix:
+        # correct the error:
         speed_change = error * kp + error_sum * ki - error_change * kd
         right_wheel.dc(base_speed - speed_change)
         left_wheel.dc(base_speed + speed_change)
@@ -116,15 +125,10 @@ def gyro_follow_PID(
         ) / 2
 
 
-# print(map_sensor.hsv())
-
-
 # Runs =================================================================================
 def black_run():
     reset()
     hub.display.number(1)
-    # wheels.settings(600, 600)
-    # wheels.straight(-10000)
 
     wheels.settings(turn_rate=100)
     left_arm.run_angle(speed=100, rotation_angle=-90, wait=False)  # pick up stuff
@@ -146,7 +150,6 @@ def black_run():
     right_arm.run_angle(250, 160)
     wheels.straight(80)
     wheels.turn(-15)
-    # right_arm.run_angle(250, 450)
     right_arm.run_time(250, 1000)
     wheels.straight(55)
     wheels.straight(-110)
@@ -162,7 +165,6 @@ def red_run():
     hub.display.number(2)
     wheels.settings(500, 250)
     wheels.straight(415)
-    # gyro_abs(45, 25)
     wheels.turn(45)
     wheels.settings(500, 100)  # slows down so the thingy doesn't fall back
     wheels.straight(280)
@@ -185,7 +187,6 @@ def red_run():
     while map_sensor.color() != RIZZ_BLACK:
         pass
     wheels.stop()
-    # wait(300)
     wheels.straight(100)
     wheels.settings(300, 600)
     wheels.turn(-90)
@@ -205,44 +206,6 @@ def red_run():
     wheels.straight(400)
     wheels.curve(480, -110, then=Stop.NONE)
     wheels.straight(100)
-    # wheels.turn(35)
-    # wheels.straight(75)
-    # wheels.turn(-13)
-    # wheels.straight(150)
-    # finished angler fish m05
-    # wheels.turn(92)
-    # wheels.straight(130)
-    # wheels.settings(200)
-    # wheels.straight(50)
-    # wheels.settings(250, 250)
-    # right_arm.run_angle(600, -400)
-
-    # wheels.settings(turn_rate=300, turn_acceleration=500)
-    # wheels.turn(40)
-    # wheels.straight(-200)
-    # wheels.straight(500)
-    # # Turn to anglerfish
-    # print("turn to anglerfish")
-    # # wheels.straight(15, Stop.NONE)
-    # wheels.curve(180, -95, Stop.NONE)
-    # wheels.straight(55, Stop.NONE)
-    # wheels.curve(180, -80)
-
-    # # Drive to anglerfish
-    # print("drive to anglerfish")
-    # wheels.straight(80)
-
-    # # Drive to seabed sample
-    # print("drive to seabed sample")
-    # wheels.straight(-50)
-    # wheels.turn(65)
-
-
-# def run_angle_time_limit(motor, rotate_speed, rotate_angle, stop_type=Stop.HOLD, time_limit_ms = 3):
-#     motor.run_angle(motor, rotate_speed, rotate_angle, stop_type, wait=False)
-#     run_time = StopWatch()
-#     print(motor.done())
-#     motor.stop_type()
 
 
 def yellow_run():
@@ -252,7 +215,7 @@ def yellow_run():
     wheels.settings(straight_speed=200, straight_acceleration=200)
     wheels.straight(280)
     right_arm.run_time(speed=-200, time=900)
-    # get in position to grab boat -------
+    # get in position to grab boat:
     right_arm.run_time(speed=200, time=1000)
     right_arm.hold()
 
@@ -277,16 +240,11 @@ def yellow_run():
     wheels.curve(400, -70)
 
 
-# while True:
-#     print(print(map_sensor.hsv()))
-
-
 def green_run():
     reset()
     hub.display.number(4)
     wheels.settings(300, 500)
     wheels.straight(445)  # pick up tamnoon
-    # wheels.settings(turn_acceleration=60)
     wheels.straight(-20)
     # go to green circle
     wheels.turn(135)
@@ -331,8 +289,9 @@ def run_straight():
     wheels.straight(100000)
 
 
+# run selector =====================================================
 selected = run_sensor.color()
-print(run_sensor.color())
+
 if selected == Color.BLACK:
     black_run()
 elif selected == Color.WHITE:
@@ -343,21 +302,3 @@ elif selected == RUN_YELLOW:
     yellow_run()
 elif selected == RUN_GREEN:
     green_run()
-
-
-# selected = hub_menu("0", "1")
-# if selected == "0":
-#     if run_sensor.color() == Color.BLACK:
-#         print(run_sensor.color())
-#         black_run()
-#     elif run_sensor.color() == Color(h=339, s=85, v=94):
-#         red_run()
-#         print(run_sensor.color())
-#     elif run_sensor.color() == Color.YELLOW:
-#         yellow_run()
-#         print(run_sensor.color())
-
-# if run_sensor.color() == Color.BLACK:
-#     black_run()
-# else:
-#     run_straight()
