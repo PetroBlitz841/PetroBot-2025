@@ -52,6 +52,22 @@ COLOR_LIST = [
 map_sensor.detectable_colors(COLOR_LIST)
 run_sensor.detectable_colors(RUN_COLORS)
 
-wheels.straight(50)
-wheels.straight(-50)
-wheels.straight(50)
+# wheels.straight(5000, wait=False)
+# wait(2000)
+# wheels.stop()
+# print("stop")
+while not wheels.done():
+    pass
+print("done")
+# wheels.straight(-50)
+# wheels.straight(50)
+
+
+def run():
+    wheels.straight(7000, wait=False)
+    wait(2000)
+    wheels.stop()
+    wheels.straight(-50)
+
+
+run()
