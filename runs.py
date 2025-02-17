@@ -6,6 +6,8 @@ from pybricks.parameters import Color, Direction, Port, Stop
 from pybricks.robotics import DriveBase
 from pybricks.tools import wait, StopWatch
 
+
+pi = 3.1416
 # Hardware definitions =================================================================
 WHEEL_DIAMETER = 62.4
 
