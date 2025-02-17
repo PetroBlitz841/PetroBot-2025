@@ -1,9 +1,10 @@
+import os
+import subprocess
+
 MAIN_HUB = "Controller3"
 SECOND_HUB = "Controller4"
 HUB_NAME = SECOND_HUB
 
-import os
-import subprocess
 
 target = os.getenv("TARGET")
 command = f"pybricksdev run ble --name {HUB_NAME} {target}"

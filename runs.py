@@ -238,56 +238,78 @@ def yellow_run():
     wheels.settings(straight_speed=900, straight_acceleration=800)
     wheels.curve(360, 80, then=Stop.NONE)
     wheels.curve(400, -70)
+    wheels.straight(2345)
 
 
 def green_run():
     reset()
+    right_arm.hold()
     hub.display.number(4)
-    wheels.settings(300, 500)
-    wheels.straight(445)  # pick up tamnoon
-    wheels.straight(-20)
-    # go to green circle
-    wheels.turn(135)
-    wheels.straight(50)
-    wheels.turn(-80)
-    wheels.straight(330)
-    wheels.turn(-95)
-    wheels.straight(210)
+    wheels.straight(501)
+    wheels.straight(-185)
+    wheels.turn(-50)
+    wheels.straight(230)
+    wheels.turn(50)
+    wheels.straight(200)
+    wheels.turn(50)
+    wheels.straight(7000, wait=False)
+    wait(2000)
+    wheels.stop()
 
-    # complete green circle
-    right_arm.run_time(speed=-360, time=2000)
-    right_arm.run_time(speed=600, time=2000)
-    # leave the tamnoon in the circle
-    wheels.straight(100)
-    wheels.turn(-30)
-    wheels.straight(100)
-    wheels.settings(straight_speed=1000)
-    wheels.curve(radius=-300, angle=-90, then=Stop.NONE)
-    wheels.straight(-500)
+    # wheels.settings(300, 500)
+    # wheels.straight(445)  # pick up tamnoon
+    # wheels.straight(-20)
+    # # go to green circle
+    # wheels.turn(135)
+    # wheels.straight(50)
+    # wheels.turn(-80)
+    # wheels.straight(330)
+    # wheels.turn(-95)
+    # wheels.straight(210)
+
+    # # complete green circle
+    # right_arm.run_time(speed=-360, time=2000)
+    # right_arm.run_time(speed=600, time=2000)
+    # # leave the tamnoon in the circle
+    # wheels.straight(100)
+    # wheels.turn(-30)
+    # wheels.straight(100)
+    # wheels.settings(straight_speed=1000)
+    # wheels.curve(radius=-300, angle=-90, then=Stop.NONE)
+    # wheels.straight(-500)
 
 
 def white_run():
     hub.display.number(5)
-    wheels.settings(600, 600)
+    wheels.settings(600, 500)
+    wheels.straight(340)
+    wheels.turn(-50)
+    wheels.straight(85)
+    right_arm.run_angle(300, 180)
+    wheels.straight(-50)
+    right_arm.run_angle(300, -90)
     wheels.straight(300)
-    wheels.turn(50)
-    wheels.straight(425)
-    wheels.turn(34)
+    wheels.turn(90)
     wheels.settings(300)
     wheels.straight(10000, then=Stop.HOLD, wait=False)
     while map_sensor.reflection() > 20:
         pass
     wheels.stop()
     wheels.straight(60)
-    right_arm.run_angle(speed=100, rotation_angle=50)
+    left_arm.run_angle(speed=100, rotation_angle=-90)
     wait(100)
-    wheels.straight(-200)
+    # wheels.straight(-20, Stop.NONE)
+    wheels.curve(-455, -45, Stop.NONE)
+    wheels.straight(-300, Stop.NONE)
+    wheels.curve(-80, 90, Stop.HOLD)
 
 
 def run_straight():
     wheels.settings(600, 600)
     wheels.straight(100000)
 
+
+print(run_sensor.color())
 
 # run selector =====================================================
 selected = run_sensor.color()
