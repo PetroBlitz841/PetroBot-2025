@@ -280,28 +280,6 @@ def green_run():
     wheels.straight(-400, Stop.NONE)
     wheels.curve(-220, 100)
 
-    # wheels.settings(300, 500)
-    # wheels.straight(445)  # pick up tamnoon
-    # wheels.straight(-20)
-    # # go to green circle
-    # wheels.turn(135)
-    # wheels.straight(50)
-    # wheels.turn(-80)
-    # wheels.straight(330)
-    # wheels.turn(-95)
-    # wheels.straight(210)
-
-    # # complete green circle
-    # right_arm.run_time(speed=-360, time=2000)
-    # right_arm.run_time(speed=600, time=2000)
-    # # leave the tamnoon in the circle
-    # wheels.straight(100)
-    # wheels.turn(-30)
-    # wheels.straight(100)
-    # wheels.settings(straight_speed=1000)
-    # wheels.curve(radius=-300, angle=-90, then=Stop.NONE)
-    # wheels.straight(-500)
-
 
 def white_run():
     hub.display.number(5)
@@ -312,7 +290,7 @@ def white_run():
     right_arm.run_angle(300, 180)
     wheels.straight(-50)
     right_arm.run_angle(300, -90)
-    wheels.straight(300)
+    wheels.straight(280)
     wheels.turn(90)
     wheels.settings(300)
     wheels.straight(10000, then=Stop.HOLD, wait=False)
