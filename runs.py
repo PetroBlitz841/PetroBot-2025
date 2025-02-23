@@ -7,7 +7,7 @@ from pybricks.tools import hub_menu
 from pybricks.robotics import DriveBase
 from pybricks.tools import wait, StopWatch
 
-
+"ho"
 pi = 3.1416
 # Hardware definitions =================================================================
 WHEEL_DIAMETER = 62.4
@@ -54,11 +54,9 @@ map_sensor.detectable_colors(COLOR_LIST)
 run_sensor.detectable_colors(RUN_COLORS)
 
 
-
-
 # utility Functions ============================================================================
 def gyro_abs(target, base_speed, kp=0.16, then: Stop = Stop.HOLD):
-    '''turns the robot to a given angle relative to the launch angle'''
+    """turns the robot to a given angle relative to the launch angle"""
     STOP_RANGE = 0.05
     while not (
         hub.imu.heading() - STOP_RANGE < target < hub.imu.heading() + STOP_RANGE
@@ -81,7 +79,7 @@ def gyro_abs(target, base_speed, kp=0.16, then: Stop = Stop.HOLD):
 
 
 def reset():
-    '''call this function in the beggining of the run'''
+    """call this function in the beggining of the run"""
     hub.imu.reset_heading(0)
     right_wheel.reset_angle(0)
     left_wheel.reset_angle(0)
@@ -91,7 +89,7 @@ def reset():
 
 
 def deg_to_mm(deg: int | float) -> float:
-    '''converts the motor's degrees to the robot's distance'''
+    """converts the motor's degrees to the robot's distance"""
     distance = (pi * WHEEL_DIAMETER * deg) / 360
     return distance
 
@@ -99,10 +97,10 @@ def deg_to_mm(deg: int | float) -> float:
 def gyro_follow_PID(
     target_distance, target_angle, base_speed=40, kp=1.6, ki=0.0025, kd=1
 ):
-    '''function for driving straight
+    """function for driving straight
     kp - proportinal correction multiplyer
     ki - integral correction multiplyer
-    kd - derivative correction multiplyer'''
+    kd - derivative correction multiplyer"""
     right_wheel.reset_angle(0)
     left_wheel.reset_angle(0)
     right_wheel.dc(base_speed)
