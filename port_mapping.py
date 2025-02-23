@@ -4,7 +4,6 @@ from pybricks.pupdevices import ColorSensor, Motor, ForceSensor, UltrasonicSenso
 from pybricks.tools import wait
 from pybricks.parameters import Button
 
-"ho"
 PORTS = (Port.A, Port.B, Port.C, Port.D, Port.E, Port.F)
 PORT_PIXELS = {
     Port.A: (0, 0),
