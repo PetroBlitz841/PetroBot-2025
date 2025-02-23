@@ -300,10 +300,11 @@ def white_run():
     wheels.straight(60)
     left_arm.run_angle(speed=100, rotation_angle=-90)
     wait(100)
-    # wheels.straight(-20, Stop.NONE)
-    wheels.curve(-455, -45, Stop.NONE)
-    wheels.straight(-300, Stop.NONE)
-    wheels.curve(-80, 90, Stop.HOLD)
+    wheels.straight(-10, Stop.NONE)
+    wheels.curve(-200, -25, Stop.NONE)
+    wheels.settings(straight_speed=1000, straight_acceleration=900)
+    wheels.straight(-400, Stop.NONE)
+    # wheels.curve(-80, 90, Stop.HOLD)
 
 
 def run_straight():
