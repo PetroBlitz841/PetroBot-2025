@@ -192,22 +192,33 @@ def red_run():
     wheels.straight(100)
     wheels.settings(300, 600)
     wheels.turn(-90)
-    wheels.straight(460)
+    wheels.straight(465)
+    # turn to dag haca
     wheels.turn(-90)
     wheels.straight(240)
     wheels.straight(-205)
-    wheels.turn(90)
-    wheels.settings(1000, 8000)
-    wheels.straight(350)
-    wheels.settings(200, 200)
-    wheels.straight(-120)
-    # go home ._.
-    wheels.settings(900, 800)
+    # #turn to tzollet
+    wheels.turn(45)
+    # wheels.settings(1000, 8000)
+    wheels.straight(160)
+    wheels.turn(-45)
+    # wheels.settings(200, 200)
+    wheels.straight(40)
+    # right_arm.run_angle(200, -70)
+    wheels.straight(130)
+    right_arm.run_angle(200, -70)
+    wheels.turn(-20)
+    wheels.straight(40)
+    right_arm.run_angle(200, -85)
+    right_arm.run_angle(200, 100)
+    wheels.curve(200, 123)
+    # # go home ._.
+    # wheels.settings(900, 800)
 
-    wheels.turn(-90)
-    wheels.straight(400)
-    wheels.curve(480, -110, then=Stop.NONE)
-    wheels.straight(100)
+    # wheels.turn(-90)
+    # wheels.straight(400)
+    # wheels.curve(480, -110, then=Stop.NONE)
+    # wheels.straight(100)
 
 
 def yellow_run():
