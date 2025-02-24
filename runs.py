@@ -185,7 +185,7 @@ def red_run():
     wheels.turn(-40)
     wait(350)
     wheels.settings(straight_speed=300)
-    wheels.straight(10000, then=Stop.HOLD, wait=False)
+    wheels.straight(1000, then=Stop.HOLD, wait=False)
     while map_sensor.color() != RIZZ_BLACK:
         pass
     wheels.stop()
@@ -194,7 +194,7 @@ def red_run():
     wheels.turn(-90)
     wheels.straight(465)
     # turn to dag haca
-    wheels.turn(-90)
+    wheels.turn(-88)
     wheels.straight(240)
     wheels.straight(-205)
     # #turn to tzollet
@@ -204,14 +204,17 @@ def red_run():
     wheels.turn(-45)
     # wheels.settings(200, 200)
     wheels.straight(40)
-    right_arm.run_angle(200, -40)
+    right_arm.run_angle(200, -80)
     # right_arm.run_angle(200, -70)
     wheels.straight(120)
     right_arm.run_angle(200, 80)
-    wheels.straight(45)
-    right_arm.run_angle(200, -85)
-    right_arm.run_angle(200, 100)
-    wheels.curve(200, 123)
+    wheels.straight(25)
+    right_arm.run_time(-1000, 500)
+    wheels.straight(20)
+    right_arm.run_time(1000, 500)
+    wheels.settings(1000)
+    wheels.curve(500, -90)
+    wheels.straight(1000)
     # # go home ._.
     # wheels.settings(900, 800)
 
