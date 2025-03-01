@@ -166,7 +166,7 @@ def red_run():
     reset()
     hub.display.number(2)
     wheels.settings(500, 250)
-    wheels.straight(415)
+    wheels.straight(413)
     wheels.turn(45)
     wheels.settings(500, 100)  # slows down so the thingy doesn't fall back
     wheels.straight(280)
@@ -182,46 +182,48 @@ def red_run():
     left_arm.run_time(speed=150, time=1800)
     wait(350)
     wheels.straight(80)
-    wheels.turn(-40)
+    wheels.turn(-38)
     wait(350)
     wheels.settings(straight_speed=300)
     wheels.straight(1000, then=Stop.HOLD, wait=False)
     while map_sensor.color() != RIZZ_BLACK:
         pass
-    wheels.stop()
+    left_wheel.hold()
+    right_wheel.hold()
     wheels.straight(100)
     wheels.settings(300, 600)
     wheels.turn(-90)
-    wheels.straight(465)
+    wheels.straight(460)
+
     # turn to dag haca
-    wheels.turn(-88)
-    wheels.straight(240)
-    wheels.straight(-205)
+
+    wheels.turn(-90)
+
+    wheels.straight(236)
+    wheels.straight(-180)
+
     # #turn to tzollet
     wheels.turn(45)
-    # wheels.settings(1000, 8000)
-    wheels.straight(160)
+    wheels.straight(170)
     wheels.turn(-45)
-    # wheels.settings(200, 200)
+    wheels.straight(125)
+    right_arm.run_angle(250, -90)
+    right_arm.run_angle(250, 90)
     wheels.straight(40)
-    right_arm.run_angle(200, -80)
-    # right_arm.run_angle(200, -70)
-    wheels.straight(120)
-    right_arm.run_angle(200, 80)
-    wheels.straight(25)
-    right_arm.run_time(-1000, 500)
-    wheels.straight(20)
-    right_arm.run_time(1000, 500)
-    wheels.settings(1000)
-    wheels.curve(500, -90)
-    wheels.straight(1000)
-    # # go home ._.
-    # wheels.settings(900, 800)
+    right_arm.run_angle(250, -90)
+    right_arm.run_angle(250, 90)
+    right_wheel.run_angle(350, 160)
+    wheels.straight(60)
+    left_wheel.run_angle(350, 160)
 
-    # wheels.turn(-90)
-    # wheels.straight(400)
-    # wheels.curve(480, -110, then=Stop.NONE)
-    # wheels.straight(100)
+    # wheels.straight(190)
+    # right_arm.run_time(350, 300)
+    # wheels.turn(-45)
+    wheels.settings(1000, 750)
+    # wheels.straight(270)
+    right_arm.dc(5)
+    wheels.curve(500, -90, then=Stop.NONE)
+    wheels.straight(3000)
 
 
 def yellow_run():
