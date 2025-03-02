@@ -166,7 +166,7 @@ def red_run():
     reset()
     hub.display.number(2)
     wheels.settings(500, 250)
-    wheels.straight(413)
+    wheels.straight(380)
     wheels.turn(45)
     wheels.settings(500, 100)  # slows down so the thingy doesn't fall back
     wheels.straight(280)
@@ -174,7 +174,7 @@ def red_run():
     # Turn to trident
     left_wheel.run_angle(360, 165, then=Stop.NONE)
     wheels.settings(300, 600)
-    wheels.straight(70)  # Drive to trident
+    wheels.straight(80)  # Drive to trident
 
     # Pick up trident
     left_arm.run_angle(speed=750, rotation_angle=-220)
