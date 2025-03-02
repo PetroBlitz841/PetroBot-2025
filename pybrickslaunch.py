@@ -13,4 +13,6 @@ try:
     subprocess.run(command, shell=True, check=True)
 except subprocess.CalledProcessError:
     print("Erַror uploading code to hub")
-    print("Make sure to set HUB_NAME and turn the hub on")
+    print(
+        "Make sure: \n - HUB_NAME is set \n - The controller is on \n - No program is running \n - BlueTooth is on (on your computer)"
+    )
