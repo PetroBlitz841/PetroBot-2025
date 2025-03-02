@@ -144,9 +144,9 @@ def black_run():
     wheels.straight(-150)
     right_arm.run_angle(600, -100)
     wheels.turn(43)
-    wheels.settings(900, 1000)  # M02
+    wheels.settings(1000, 2000)  # M02
     wheels.straight(250)
-    wheels.settings(300, 750)
+    wheels.settings(300, 5000)
     wheels.straight(-260)
     wheels.turn(58)
     right_arm.run_angle(250, 160)
@@ -245,7 +245,7 @@ def yellow_run():
     wheels.straight(-150)
 
     wait(500)
-    wheels.settings(straight_speed=400)
+    # wheels.settings(straight_speed=400)
     right_arm.hold()
     wheels.straight(-170)
     wheels.settings(straight_speed=500, straight_acceleration=500)
@@ -258,7 +258,7 @@ def yellow_run():
     wheels.curve(390, 60)
     wheels.straight(-100)
     left_arm.run_angle(1000, -100)
-    wheels.settings(1000)
+    wheels.settings(1000, 2000)
     wheels.straight(1000)
     # wheels.curve(400, -70)
     # wheels.straight(2345)
