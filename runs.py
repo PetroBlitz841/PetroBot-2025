@@ -268,6 +268,7 @@ def green_run():
     reset()
     right_arm.hold()
     hub.display.number(4)
+    original_settings = wheels.settings()
     wheels.settings(straight_speed=500, straight_acceleration=400)
     right_arm.hold()
     wheels.straight(501)
@@ -280,26 +281,38 @@ def green_run():
     # wheels.straight(630, Stop.HOLD)  # to wall
     wheels.straight(400, Stop.NONE)  # to wall
     wheels.drive(500, 0)
-    wait(500)
+    wait(700)
     right_wheel.hold()
     left_wheel.hold()
-    right_arm.run_angle(speed=700, rotation_angle=700)
+    right_arm.run_angle(speed=700, rotation_angle=700)  # Sonar down
     wait(500)
-    right_arm.run_angle(speed=-700, rotation_angle=1500, then=Stop.HOLD, wait=False)
-    left_arm.run_angle(speed=1000, rotation_angle=900)
-    left_arm.run_angle(speed=1000, rotation_angle=-900, wait=False)
-    wheels.straight(-50)
-    wheels.curve(radius=-180, angle=100)
-    wheels.settings(straight_speed=300, straight_acceleration=300)
-    wheels.straight(-330)
-    wheels.straight(130)
-    wheels.turn(50)
-    wheels.straight(-160)
-    wheels.straight(230)
-    wheels.turn(85)
-    wheels.settings(400, 400)
-    wheels.straight(-450, Stop.NONE)
-    wheels.curve(radius=-220, angle=80)
+    right_arm.run_angle(
+        speed=-700, rotation_angle=1500, then=Stop.HOLD, wait=False
+    )  # Sonar up
+    left_arm.run_angle(speed=1000, rotation_angle=900)  # Submarine up
+    left_arm.run_angle(speed=1000, rotation_angle=-900, wait=False)  # Submarine down
+    wheels.settings(straight_speed=500, straight_acceleration=400)
+
+    wheels.settings(*original_settings)
+    wheels.straight(-50)  # Start return home
+    wheels.curve(radius=-190, angle=90, then=Stop.NONE)
+    wheels.straight(-350)
+    wheels.straight(330)
+    wheels.curve(radius=-200, angle=-120, then=Stop.HOLD)
+    wheels.curve(radius=-150, angle=60, then=Stop.NONE)
+    wheels.straight(-500)
+
+    # wheels.settings(straight_speed=300, straight_acceleration=300)
+    # wheels.straight(-400)
+    # wheels.straight(200)
+    # wheels.turn(80)
+    # wait(10000)
+    # wheels.straight(-160)
+    # wheels.straight(230)
+    # wheels.turn(85)
+    # wheels.settings(400, 400)
+    # wheels.straight(-450, Stop.NONE)
+    # wheels.curve(radius=-220, angle=80)
 
 
 def white_run():
