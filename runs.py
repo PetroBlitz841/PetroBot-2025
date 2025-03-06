@@ -318,12 +318,13 @@ def green_run():
 def white_run():
     hub.display.number(5)
     wheels.settings(600, 500)
-    wheels.straight(340)
+    left_arm.hold()
+    wheels.straight(337)
     wheels.turn(-50)
     wheels.straight(85)
     right_arm.run_angle(300, 180)
     wheels.straight(-50)
-    right_arm.run_angle(300, -90)
+    right_arm.run_angle(300, -110)
     wheels.straight(280)
     wheels.turn(90)
     wheels.settings(300)
@@ -334,10 +335,11 @@ def white_run():
     wheels.straight(60)
     left_arm.run_angle(speed=100, rotation_angle=-90)
     wait(100)
-    wheels.straight(-10, Stop.NONE)
+    wheels.straight(-5, Stop.NONE)
     wheels.curve(-200, -25, Stop.NONE)
     wheels.settings(straight_speed=1000, straight_acceleration=900)
-    wheels.straight(-400, Stop.NONE)
+    wheels.straight(-500)
+
     # wheels.curve(-80, 90, Stop.HOLD)
 
 
