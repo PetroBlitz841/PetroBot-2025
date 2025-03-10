@@ -29,7 +29,7 @@ pi = 3.1415926535898
 RUN_RED = Color(h=339, s=85, v=94)
 RUN_GREEN = Color(h=154, s=77, v=52)
 DARK_BLUE_MAT = Color(h=210, s=37, v=32)
-RIZZ_BLACK = Color(h=189, s=27, v=31)
+BLACK = Color(h=189, s=27, v=31)
 RUN_YELLOW = Color(h=41, s=68, v=100)
 whale_blue = Color(h=202, s=62, v=60)
 sea_blue = Color(h=203, s=67, v=57)
@@ -44,7 +44,7 @@ COLOR_LIST = [
     Color.YELLOW,
     Color.WHITE,
     DARK_BLUE_MAT,
-    RIZZ_BLACK,
+    BLACK,
     RUN_YELLOW,
     whale_blue,
     sea_blue,
@@ -129,31 +129,40 @@ def gyro_follow_PID(
 
 # Runs =================================================================================
 def black_run():
+    """105 points"""
     reset()
     hub.display.number(1)
-
     wheels.settings(turn_rate=100)
-    left_arm.run_angle(speed=100, rotation_angle=-90, wait=False)  # pick up stuff
+
+    # pick up Coral (M03), Krill (M12) & Water sample (M14)
+    left_arm.run_angle(speed=100, rotation_angle=-90, wait=False)
     wheels.straight(-500)
     left_arm.run_angle(speed=100, rotation_angle=90)
+    # drive to Coral nursery(M01)
     wheels.straight(-90)
     wheels.turn(angle=90 - 20.5)
     right_arm.run_angle(800, 500, wait=False)
-    wheels.straight(185)  # M01
-    right_arm.run_angle(800, -350)  # M04
+    # push Coral Buds (M01) & pick up Scuba Diver (M04)
+    wheels.straight(185)
+    right_arm.run_angle(800, -350)
     wheels.straight(-150)
     right_arm.run_angle(600, -100)
+    # turn to Shark
     wheels.turn(43)
-    wheels.settings(1000, 3000)  # M02
+    wheels.settings(1000, 3000)
+    # launch Shark (M02)
     wheels.straight(250)
+    # drive to Coral Reef (M03)
     wheels.settings(300, 300)
     wheels.straight(-260)
     wheels.turn(58)
     right_arm.run_angle(250, 160)
     wheels.straight(80)
+    # hang Scuba diver (M04) & press Coral reef (M03)
     wheels.turn(-15)
     right_arm.run_time(250, 1500)
     wheels.straight(55)
+    # drive back to red launch area
     wheels.straight(-110)
     left_wheel.run_angle(240, 145)
     wheels.settings(1000, 800)
@@ -162,139 +171,143 @@ def black_run():
 
 
 def red_run():
-
+    """90 points"""
     reset()
     hub.display.number(2)
     wheels.settings(500, 250)
+
+    # drive to Shipwreck
     wheels.straight(380)
     wheels.turn(45)
-    wheels.settings(500, 100)  # slows down so the thingy doesn't fall back
+    # Raise the Mast (M06)
+    wheels.settings(500, 100)
     wheels.straight(280)
-
-    # Turn to trident
+    # Turn to Trident
     left_wheel.run_angle(360, 165, then=Stop.NONE)
     wheels.settings(300, 600)
-    wheels.straight(80)  # Drive to trident
-
-    # Pick up trident
+    wheels.straight(80)
+    # Pick up Trident (M14)
     left_arm.run_angle(speed=750, rotation_angle=-220)
     wait(500)
     left_arm.run_time(speed=150, time=1800)
     wait(350)
+    # drive to black line
     wheels.straight(80)
     wheels.turn(-38)
     wait(350)
     wheels.settings(straight_speed=300)
     wheels.straight(1000, then=Stop.HOLD, wait=False)
-    while map_sensor.color() != RIZZ_BLACK:
+    while map_sensor.color() != BLACK:  # drives until black detected
         pass
     left_wheel.hold()
     right_wheel.hold()
+    # drive to Angler Fish
     wheels.straight(100)
     wheels.settings(300, 600)
     wheels.turn(-90)
     wheels.straight(460)
-
-    # turn to dag haca
-
     wheels.turn(-90)
-
+    # push Angler fish (M05)
     wheels.straight(236)
+    # drive to Seabed Sample
     wheels.straight(-180)
-
-    # #turn to tzollet
     wheels.turn(45)
     wheels.straight(170)
     wheels.turn(-45)
     wheels.straight(125)
+    # pick up Seabed Sample (M14)
     right_arm.run_angle(250, -90)
     right_arm.run_angle(250, 90)
     wheels.straight(40)
     right_arm.run_angle(250, -90)
     right_arm.run_angle(250, 90)
+    # drive back to red launch area
     right_wheel.run_angle(350, 160)
     wheels.straight(60)
     left_wheel.run_angle(350, 160)
-
-    # wheels.straight(190)
-    # right_arm.run_time(350, 300)
-    # wheels.turn(-45)
     wheels.settings(1000, 750)
-    # wheels.straight(270)
     right_arm.dc(5)
     wheels.curve(500, -90, then=Stop.NONE)
     wheels.straight(3000)
 
 
 def yellow_run():
+    """85 points"""  # TODO
     reset()
     right_arm.hold()
     hub.display.number(3)
 
+    # drive towards Ship (M15)
     wheels.settings(straight_speed=500, straight_acceleration=200)
-    wheels.straight(280)
+    wheels.straight(260)
+
+    # drop Sample Collection (M14)
     right_arm.run_time(speed=-200, time=900)
-    # get in position to grab boat:
     right_arm.run_time(speed=500, time=1000)
     right_arm.hold()
 
-    # --------------------------------------
-    wheels.straight(440, then=Stop.NONE)
-    wheels.straight(190)
+    # Rearrange Artificial Habitat (M08)
+    wheels.straight(650)
     wheels.settings(straight_speed=400, straight_acceleration=60)
     wheels.straight(-160)
-
     wait(500)
-    # wheels.settings(straight_speed=400)
     right_arm.hold()
     wheels.straight(-160)
+
+    # drive towards Shark Habitat (M02)
     wheels.settings(straight_speed=500, straight_acceleration=500)
     wheels.turn(-45)
     wheels.straight(170, wait=False)
+    # drop Shark
     right_arm.run_time(speed=100, time=1000)
     right_arm.hold()
     wheels.settings(straight_speed=800, straight_acceleration=300)
 
+    # drive to blue launch area
     wheels.curve(390, 60)
     wheels.straight(-100)
     left_arm.run_angle(1000, -100)
     wheels.settings(1000, 2000)
     wheels.straight(1000)
-    # wheels.curve(400, -70)
-    # wheels.straight(2345)
 
 
 def green_run():
+    """100 points"""
     reset()
     right_arm.hold()
     hub.display.number(4)
     original_settings = wheels.settings()
     wheels.settings(straight_speed=500, straight_acceleration=400)
     right_arm.hold()
+
+    # release Unknown Creature (M09)
     wheels.straight(501)
     wheels.straight(-185)
+
+    # drive towrds Sonar (M11) and Submersible (M10)
     wheels.turn(-50)
     wheels.straight(260)
     wheels.turn(50)
     wheels.straight(170)
     wheels.turn(50)
-    # wheels.straight(630, Stop.HOLD)  # to wall
-    wheels.straight(400, Stop.NONE)  # to wall
+    wheels.straight(400, Stop.NONE)  # allign to wall
     wheels.drive(500, 0)
     wait(700)
     right_wheel.hold()
     left_wheel.hold()
-    right_arm.run_angle(speed=700, rotation_angle=700)  # Sonar down
-    wait(500)
-    right_arm.run_angle(
-        speed=-700, rotation_angle=1500, then=Stop.HOLD, wait=False
-    )  # Sonar up
-    left_arm.run_angle(speed=1000, rotation_angle=900)  # Submarine up
-    left_arm.run_angle(speed=1000, rotation_angle=-900, wait=False)  # Submarine down
-    wheels.settings(straight_speed=500, straight_acceleration=400)
 
+    # Sonar
+    right_arm.run_angle(speed=700, rotation_angle=700)
+    wait(500)
+    right_arm.run_angle(speed=-700, rotation_angle=1500, then=Stop.HOLD, wait=False)
+
+    # Send Over the Submersible
+    left_arm.run_angle(speed=1000, rotation_angle=900)
+    left_arm.run_angle(speed=1000, rotation_angle=-900, wait=False)
+
+    # return to blue launch area
     wheels.settings(*original_settings)
-    wheels.straight(-50)  # Start return home
+    wheels.straight(-50)
     wheels.curve(radius=-190, angle=90, then=Stop.NONE)
     wheels.straight(-350)
     wheels.straight(330)
@@ -302,29 +315,22 @@ def green_run():
     wheels.curve(radius=-150, angle=60, then=Stop.NONE)
     wheels.straight(-500)
 
-    # wheels.settings(straight_speed=300, straight_acceleration=300)
-    # wheels.straight(-400)
-    # wheels.straight(200)
-    # wheels.turn(80)
-    # wait(10000)
-    # wheels.straight(-160)
-    # wheels.straight(230)
-    # wheels.turn(85)
-    # wheels.settings(400, 400)
-    # wheels.straight(-450, Stop.NONE)
-    # wheels.curve(radius=-220, angle=80)
-
 
 def white_run():
+    """75 points"""
     hub.display.number(5)
     wheels.settings(600, 500)
     left_arm.hold()
+
+    # drive towards Cargo Ship (M13)
     wheels.straight(337)
     wheels.turn(-50)
     wheels.straight(85)
+    # change Shipping Lanes
     right_arm.run_angle(300, 180)
     wheels.straight(-50)
     right_arm.run_angle(300, -110)
+    # drive towards the Whale (M12)
     wheels.straight(280)
     wheels.turn(90)
     wheels.settings(300)
@@ -333,14 +339,15 @@ def white_run():
         pass
     wheels.stop()
     wheels.straight(60)
+    # Feed the Whale (M12) and leave Reef Segment (M03)
     left_arm.run_angle(speed=100, rotation_angle=-90)
     wait(100)
+
+    # drive to the Cold Seep (M09)
     wheels.straight(-5, Stop.NONE)
     wheels.curve(-200, -25, Stop.NONE)
     wheels.settings(straight_speed=1000, straight_acceleration=900)
     wheels.straight(-500)
-
-    # wheels.curve(-80, 90, Stop.HOLD)
 
 
 def run_straight():
@@ -348,7 +355,9 @@ def run_straight():
     wheels.straight(100000)
 
 
+# check if correct run
 print(run_sensor.color())
+
 
 # run selector =====================================================
 selected = run_sensor.color()
