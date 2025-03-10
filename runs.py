@@ -132,7 +132,7 @@ def black_run():
     """105 points"""
     reset()
     hub.display.number(1)
-    wheels.settings(turn_rate=100)
+    wheels.settings(turn_rate=100, straight_speed=800, straight_acceleration=800)
 
     # pick up Coral (M03), Krill (M12) & Water sample (M14)
     left_arm.run_angle(speed=100, rotation_angle=-90, wait=False)
@@ -165,9 +165,9 @@ def black_run():
     # drive back to red launch area
     wheels.straight(-110)
     left_wheel.run_angle(240, 145)
-    wheels.settings(1000, 800)
-    wheels.straight(-800)
-    wheels.turn(180)
+    wheels.settings(1000, 2000)
+    wheels.straight(-400, then=Stop.NONE)
+    wheels.curve(-400, -90)
 
 
 def red_run():
@@ -232,7 +232,7 @@ def red_run():
 
 
 def yellow_run():
-    """85 points"""  # TODO
+    """85 points"""
     reset()
     right_arm.hold()
     hub.display.number(3)
@@ -277,7 +277,7 @@ def green_run():
     right_arm.hold()
     hub.display.number(4)
     original_settings = wheels.settings()
-    wheels.settings(straight_speed=500, straight_acceleration=400)
+    wheels.settings(straight_speed=500, straight_acceleration=500)
     right_arm.hold()
 
     # release Unknown Creature (M09)
@@ -297,7 +297,7 @@ def green_run():
     left_wheel.hold()
 
     # Sonar
-    right_arm.run_angle(speed=700, rotation_angle=700)
+    right_arm.run_angle(speed=800, rotation_angle=700)
     wait(500)
     right_arm.run_angle(speed=-700, rotation_angle=1500, then=Stop.HOLD, wait=False)
 
@@ -306,12 +306,12 @@ def green_run():
     left_arm.run_angle(speed=1000, rotation_angle=-900, wait=False)
 
     # return to blue launch area
-    wheels.settings(*original_settings)
+    wheels.settings(500, 900)
     wheels.straight(-50)
-    wheels.curve(radius=-190, angle=90, then=Stop.NONE)
-    wheels.straight(-350)
-    wheels.straight(330)
-    wheels.curve(radius=-200, angle=-120, then=Stop.HOLD)
+    wheels.curve(radius=-190, angle=83, then=Stop.NONE)
+    wheels.straight(-400)
+    wheels.straight(380)
+    wheels.curve(radius=-200, angle=-120)
     wheels.curve(radius=-150, angle=60, then=Stop.NONE)
     wheels.straight(-500)
 
