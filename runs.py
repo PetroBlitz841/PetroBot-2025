@@ -208,7 +208,8 @@ def red_run():
     wheels.straight(460)
     wheels.turn(-90)
     # push Angler fish (M05)
-    wheels.straight(236)
+    wheels.drive(900, 0)
+    wait(700)
     # drive to Seabed Sample
     wheels.straight(-180)
     wheels.turn(45)
@@ -216,9 +217,9 @@ def red_run():
     wheels.turn(-45)
     wheels.straight(125)
     # pick up Seabed Sample (M14)
-    right_arm.run_angle(250, -90)
+    right_arm.run_angle(300, -90)
+    wheels.straight(70)
     right_arm.run_angle(250, 90)
-    wheels.straight(40)
     right_arm.run_angle(250, -90)
     right_arm.run_angle(250, 90)
     # drive back to red launch area
