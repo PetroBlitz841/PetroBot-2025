@@ -240,7 +240,7 @@ def yellow_run():
 
     # drive towards Ship (M15)
     wheels.settings(straight_speed=500, straight_acceleration=200)
-    wheels.straight(260)
+    wheels.straight(240)
 
     # drop Sample Collection (M14)
     right_arm.run_time(speed=-200, time=900)
@@ -248,11 +248,12 @@ def yellow_run():
     right_arm.hold()
 
     # Rearrange Artificial Habitat (M08)
-    wheels.straight(650)
+    wheels.straight(670)
     wheels.settings(straight_speed=400, straight_acceleration=60)
     wheels.straight(-160)
     wait(500)
     right_arm.hold()
+    wheels.settings(900, 900)
     wheels.straight(-160)
 
     # drive towards Shark Habitat (M02)
@@ -260,9 +261,9 @@ def yellow_run():
     wheels.turn(-45)
     wheels.straight(170, wait=False)
     # drop Shark
-    right_arm.run_time(speed=100, time=1000)
     right_arm.hold()
-    wheels.settings(straight_speed=800, straight_acceleration=300)
+    right_arm.run_time(speed=100, time=1000)
+    wheels.settings(straight_speed=800, straight_acceleration=1000)
 
     # drive to blue launch area
     wheels.curve(390, 60)
