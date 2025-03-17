@@ -310,7 +310,7 @@ def green_run():
     # return to blue launch area
     wheels.settings(500, 900)
     wheels.straight(-50)
-    wheels.curve(radius=-190, angle=83, then=Stop.NONE)
+    wheels.curve(radius=-190, angle=80, then=Stop.NONE)
     wheels.straight(-400)
     wheels.straight(380)
     wheels.curve(radius=-200, angle=-120)
