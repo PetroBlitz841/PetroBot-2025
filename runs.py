@@ -127,16 +127,36 @@ def gyro_follow_PID(
         ) / 2
 
 
+TARGET = 57
+
+
+def follow_line_til_end(speed, kp, side):
+    if side == "R":
+        direction = 1
+    else:
+        direction = -1  # changing which wheel will add or subtruct the change
+        left_wheel.reset_angle()  # reseting wheel angle for counting the distance we crossed
+    while "1+1=3":
+        while (
+            map_sensor.reflection() < 25
+        ):  # converting the angle of the wheel to mm and checking if we crossed the distance
+            change = (
+                (TARGET - map_sensor.reflection()) * kp * direction
+            )  # calculating the change needed to add or subtruct from the wheels
+            left_wheel.dc(speed + change)
+            right_wheel.dc(speed - change)
+
+
 # Runs =================================================================================
 def black_run():
     """105 points"""
     reset()
     hub.display.number(1)
-    wheels.settings(turn_rate=100, straight_speed=800, straight_acceleration=800)
+    wheels.settings(turn_rate=100, straight_speed=500, straight_acceleration=500)
 
     # pick up Coral (M03), Krill (M12) & Water sample (M14)
     left_arm.run_angle(speed=100, rotation_angle=-90, wait=False)
-    wheels.straight(-500)
+    wheels.straight(-490)
     left_arm.run_angle(speed=100, rotation_angle=90)
     # drive to Coral nursery(M01)
     wheels.straight(-90)
@@ -146,7 +166,7 @@ def black_run():
     wheels.straight(185)
     right_arm.run_angle(800, -350)
     wheels.straight(-150)
-    right_arm.run_angle(600, -100)
+    right_arm.run_angle(600, -120)
     # turn to Shark
     wheels.turn(43)
     wheels.settings(1000, 3000)
@@ -177,7 +197,7 @@ def red_run():
     wheels.settings(500, 250)
 
     # drive to Shipwreck
-    wheels.straight(380)
+    wheels.straight(410)
     wheels.turn(45)
     # Raise the Mast (M06)
     wheels.settings(500, 100)
@@ -206,30 +226,34 @@ def red_run():
     wheels.settings(300, 600)
     wheels.turn(-90)
     wheels.straight(460)
-    wheels.turn(-90)
+    wheels.turn(-87)
     # push Angler fish (M05)
-    wheels.drive(900, 0)
+    wheels.drive(300, 0)
     wait(700)
     # drive to Seabed Sample
-    wheels.straight(-180)
+    wheels.straight(-60)
     wheels.turn(45)
-    wheels.straight(170)
+    wheels.straight(140)
     wheels.turn(-45)
-    wheels.straight(125)
-    # pick up Seabed Sample (M14)
-    right_arm.run_angle(300, -90)
-    wheels.straight(70)
-    right_arm.run_angle(250, 90)
-    right_arm.run_angle(250, -90)
-    right_arm.run_angle(250, 90)
-    # drive back to red launch area
+    # wheels.straight(125)
+    # # pick up Seabed Sample (M14)
+    right_arm.run_angle(300, -40)
+    wheels.straight(180)
+    right_arm.run_angle(250, -70)
+    # right_arm.run_angle(250, -90)
+    wheels.straight(30)
+    right_arm.run_angle(250, 150)
+    # wheels.straight(50)
+    # # drive back to red launch area
     right_wheel.run_angle(350, 160)
     wheels.straight(60)
     left_wheel.run_angle(350, 160)
-    wheels.settings(1000, 750)
-    right_arm.dc(5)
-    wheels.curve(500, -90, then=Stop.NONE)
+    # wheels.settings(1000, 750)
+    right_arm.dc(20)
+    wheels.straight(10)
+    wheels.curve(400, -90, then=Stop.NONE)
     wheels.straight(3000)
+    # # follow_line_til_end(100, 1.3, "R")
 
 
 def yellow_run():
