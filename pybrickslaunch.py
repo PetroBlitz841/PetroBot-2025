@@ -1,7 +1,7 @@
 import os
 import subprocess
 
-MAIN_HUB = "Controller3"
+MAIN_HUB = "Controller1"
 SECOND_HUB = "Controller4"
 HUB_NAME = MAIN_HUB
 

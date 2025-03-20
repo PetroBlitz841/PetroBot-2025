@@ -247,12 +247,13 @@ def red_run():
     # # drive back to red launch area
     right_wheel.run_angle(350, 160)
     wheels.straight(60)
-    left_wheel.run_angle(350, 160)
-    # wheels.settings(1000, 750)
-    right_arm.dc(20)
+    left_wheel.run_time(350, 700)
+    wheels.settings(1000, 750)
+    right_arm.dc(50)
     wheels.straight(10)
-    wheels.curve(400, -90, then=Stop.NONE)
-    wheels.straight(3000)
+    wheels.curve(250, -90, then=Stop.NONE)
+    wheels.straight(200, then=Stop.NONE)
+    wheels.curve(160, 80, then=Stop.NONE)
     # # follow_line_til_end(100, 1.3, "R")
 
 
@@ -277,7 +278,7 @@ def yellow_run():
     wheels.straight(-160)
     wait(500)
     right_arm.hold()
-    wheels.settings(900, 900)
+    wheels.settings(700, 700)
     wheels.straight(-160)
 
     # drive towards Shark Habitat (M02)
@@ -335,7 +336,7 @@ def green_run():
     wheels.settings(500, 900)
     wheels.straight(-50)
     wheels.curve(radius=-190, angle=80, then=Stop.NONE)
-    wheels.straight(-400)
+    wheels.straight(-415)
     wheels.straight(380)
     wheels.curve(radius=-200, angle=-120)
     wheels.curve(radius=-150, angle=60, then=Stop.NONE)
@@ -379,10 +380,6 @@ def white_run():
 def run_straight():
     wheels.settings(600, 600)
     wheels.straight(100000)
-
-
-# check if correct run
-print(run_sensor.color())
 
 
 # run selector =====================================================
