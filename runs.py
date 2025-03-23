@@ -242,7 +242,7 @@ def red_run():
     right_arm.run_angle(250, -70)
     # right_arm.run_angle(250, -90)
     wheels.straight(30)
-    right_arm.run_angle(250, 150)
+    right_arm.run_angle(250, 170)
     # wheels.straight(50)
     # # drive back to red launch area
     right_wheel.run_angle(350, 160)
@@ -253,7 +253,8 @@ def red_run():
     wheels.straight(10)
     wheels.curve(250, -90, then=Stop.NONE)
     wheels.straight(200, then=Stop.NONE)
-    wheels.curve(160, 80, then=Stop.NONE)
+    wheels.curve(230, 70, then=Stop.NONE)
+    wheels.straight(1000)
     # # follow_line_til_end(100, 1.3, "R")
 
 
