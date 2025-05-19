@@ -197,7 +197,7 @@ def red_run():
     wheels.settings(500, 250)
 
     # drive to Shipwreck
-    wheels.straight(410)
+    wheels.straight(395)
     wheels.turn(45)
     # Raise the Mast (M06)
     wheels.settings(500, 100)
@@ -239,7 +239,9 @@ def red_run():
     # # pick up Seabed Sample (M14)
     right_arm.run_angle(300, -40)
     wheels.straight(180)
-    right_arm.run_angle(250, -70)
+    # right_arm.run_angle(250, -70)
+    right_arm.run_time(250, 1000)
+
     # right_arm.run_angle(250, -90)
     wheels.straight(30)
     right_arm.run_angle(250, 170)
