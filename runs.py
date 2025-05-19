@@ -209,7 +209,7 @@ def red_run():
     # Pick up Trident (M14)
     left_arm.run_angle(speed=750, rotation_angle=-220)
     wait(500)
-    left_arm.run_time(speed=150, time=1800)
+    left_arm.run_time(speed=120, time=3000, then=Stop.HOLD)
     wait(350)
     # drive to black line
     wheels.straight(80)
@@ -266,7 +266,7 @@ def yellow_run():
 
     # drive towards Ship (M15)
     wheels.settings(straight_speed=500, straight_acceleration=200)
-    wheels.straight(240)
+    wheels.straight(330)
 
     # drop Sample Collection (M14)
     right_arm.run_time(speed=-200, time=900)
@@ -355,12 +355,12 @@ def white_run():
     wheels.turn(-50)
     wheels.straight(85)
     # change Shipping Lanes
-    right_arm.run_angle(300, 180)
+    right_arm.run_angle(280, 180)
     wheels.straight(-50)
     right_arm.run_angle(300, -110)
     # drive towards the Whale (M12)
-    wheels.straight(280)
-    wheels.turn(90)
+    wheels.straight(300)
+    wheels.turn(100)
     wheels.settings(300)
     wheels.straight(10000, then=Stop.HOLD, wait=False)
     while map_sensor.reflection() > 20:
@@ -372,8 +372,8 @@ def white_run():
     wait(100)
 
     # drive to the Cold Seep (M09)
-    wheels.straight(-5, Stop.NONE)
-    wheels.curve(-200, -25, Stop.NONE)
+    wheels.straight(-40, Stop.NONE)
+    wheels.curve(-180, -35, Stop.NONE)
     wheels.settings(straight_speed=1000, straight_acceleration=900)
     wheels.straight(-500)
 
