@@ -316,7 +316,7 @@ def green_run():
 
     # drive towrds Sonar (M11) and Submersible (M10)
     wheels.turn(-50)
-    wheels.straight(260)
+    wheels.straight(300)
     wheels.turn(50)
     wheels.straight(170)
     wheels.turn(50)
@@ -327,9 +327,9 @@ def green_run():
     left_wheel.hold()
 
     # Sonar
-    right_arm.run_angle(speed=800, rotation_angle=700)
+    right_arm.run_angle(speed=800, rotation_angle=-300)
     wait(500)
-    right_arm.run_angle(speed=-700, rotation_angle=1500, then=Stop.HOLD, wait=False)
+    right_arm.run_angle(speed=700, rotation_angle=1500, then=Stop.HOLD, wait=False)
 
     # Send Over the Submersible
     left_arm.run_angle(speed=1000, rotation_angle=900)
