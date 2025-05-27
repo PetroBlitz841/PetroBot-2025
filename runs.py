@@ -210,6 +210,9 @@ def red_run():
     left_arm.run_angle(speed=750, rotation_angle=-220)
     wait(500)
     left_arm.run_time(speed=120, time=3000, then=Stop.HOLD)
+    wheels.settings(
+        straight_speed=900,
+    )
     wheels.curve(210, -190)
     wheels.straight(50)
     wheels.curve(140, -30)
