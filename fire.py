@@ -255,7 +255,7 @@ def green_run():
     right_arm.hold()
 
     # release Unknown Creature (M09)
-    wheels.straight(501)
+    wheels.straight(550)
     wheels.straight(-185)
 
     # drive towrds Sonar (M11) and Submersible (M10)
@@ -263,31 +263,47 @@ def green_run():
     wheels.straight(300)
     wheels.turn(50)
     wheels.straight(170)
-    wheels.turn(50)
-    wheels.straight(400, Stop.NONE)  # allign to wall
-    wheels.drive(500, 0)
-    wait(700)
-    right_wheel.hold()
+    wheels.turn(40)
+    wheels.settings(400)
+    wheels.straight(1000, then=Stop.HOLD, wait=False)
+    while map_sensor.color() != BLACK:  # drives until black detected
+        pass
     left_wheel.hold()
+    right_wheel.hold()
+    print("hi")
+    wheels.turn(90)
+    # follow_line_til_end(500, 3, "L")
 
-    # Sonar
-    right_arm.run_angle(speed=800, rotation_angle=-300)
-    wait(500)
-    right_arm.run_angle(speed=700, rotation_angle=1500, then=Stop.HOLD, wait=False)
+    # wheels.straight(-100)
+    # wheels.turn(60)
+    # wheels.straight(100)
+    # wheels.curve(100, -120)
+    # wheels.straight(200)
 
-    # Send Over the Submersible
-    left_arm.run_angle(speed=1000, rotation_angle=900)
-    left_arm.run_angle(speed=1000, rotation_angle=-900, wait=False)
+    # wheels.straight(400, Stop.NONE)  # allign to wall
+    # wheels.drive(500, 0)
+    # wait(700)
+    # right_wheel.hold()
+    # left_wheel.hold()
 
-    # return to blue launch area
-    wheels.settings(500, 900)
-    wheels.straight(-50)
-    wheels.curve(radius=-190, angle=80, then=Stop.NONE)
-    wheels.straight(-415)
-    wheels.straight(380)
-    wheels.curve(radius=-200, angle=-120)
-    wheels.curve(radius=-150, angle=60, then=Stop.NONE)
-    wheels.straight(-500)
+    # # Sonar
+    # right_arm.run_angle(speed=800, rotation_angle=-300)
+    # wait(500)
+    # right_arm.run_angle(speed=700, rotation_angle=1500, then=Stop.HOLD, wait=False)
+
+    # # Send Over the Submersible
+    # left_arm.run_angle(speed=1000, rotation_angle=900)
+    # left_arm.run_angle(speed=1000, rotation_angle=-900, wait=False)
+
+    # # return to blue launch area
+    # wheels.settings(500, 900)
+    # wheels.straight(-50)
+    # wheels.curve(radius=-190, angle=80, then=Stop.NONE)
+    # wheels.straight(-415)
+    # wheels.straight(380)
+    # wheels.curve(radius=-200, angle=-120)
+    # wheels.curve(radius=-150, angle=60, then=Stop.NONE)
+    # wheels.straight(-500)
 
 
 def white_run():
