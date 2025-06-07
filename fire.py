@@ -197,10 +197,11 @@ def red_run():
     wheels.straight(-130, then=Stop.NONE)
     wheels.curve(-340, -90)
     wheels.straight(-150)
-    wait(100000)
-    wheels.straight(200)
-    wheels.curve(150, -90)
-    wheels.straight(400)
+    wheels.straight(150, then=Stop.NONE)
+    wheels.turn(120, then=Stop.NONE)
+    wheels.straight(-20000)
+    # wheels.curve(150, -90)
+    # wheels.straight(400)
 
 
 def yellow_run():
